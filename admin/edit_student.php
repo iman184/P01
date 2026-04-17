@@ -15,6 +15,7 @@ $student = $stmt->fetch();
 if (!$student) { header("Location: students.php"); exit; }
 
 $errors = [];
+$fieldErrors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -23,11 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $last_name  = trim($_POST['last_name']);
     $email      = trim($_POST['email']);
 
-    if (empty($student_number)) $errors[] = "Le matricule est obligatoire.";
-    if (empty($first_name)) $errors[] = "Le prénom est obligatoire.";
-    if (empty($last_name))  $errors[] = "Le nom est obligatoire.";
-    if (empty($email))      $errors[] = "L'email est obligatoire.";
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Email invalide.";
+    if (empty($student_number)) $fieldErrors['student_number'] = "Le matricule est obligatoire.";
+    if (empty($first_name)) $fieldErrors['first_name'] = "Le prénom est obligatoire.";
+    if (empty($last_name))  $fieldErrors['last_name'] = "Le nom est obligatoire.";
+    if (empty($email))      $fieldErrors['email'] = "L'email est obligatoire.";
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $fieldErrors['email'] = "Email invalide.";
+
+    $errors = array_values($fieldErrors);
 
     // Check duplicate — exclude current student
     if (empty($errors)) {
@@ -63,14 +66,6 @@ require_once '../includes/header.php';
     <a href="students.php" class="btn btn-secondary">← Retour</a>
 </div>
 
-<?php if (!empty($errors)): ?>
-    <?php foreach ($errors as $err): ?>
-        <div class="alert alert-danger">
-            <?= htmlspecialchars($err) ?>
-        </div>
-    <?php endforeach; ?>
-<?php endif; ?>
-
 <div class="card">
     <form method="POST" action="">
 
@@ -78,6 +73,9 @@ require_once '../includes/header.php';
             <label>Matricule</label>
             <input type="text" name="student_number"
                    value="<?= htmlspecialchars($data['student_number']) ?>">
+            <?php if (!empty($fieldErrors['student_number'])): ?>
+                <div class="field-error"><?= htmlspecialchars($fieldErrors['student_number']) ?></div>
+            <?php endif; ?>
         </div>
 
         <div class="form-row">
@@ -85,11 +83,17 @@ require_once '../includes/header.php';
                 <label>Prénom</label>
                 <input type="text" name="first_name"
                        value="<?= htmlspecialchars($data['first_name']) ?>">
+                <?php if (!empty($fieldErrors['first_name'])): ?>
+                    <div class="field-error"><?= htmlspecialchars($fieldErrors['first_name']) ?></div>
+                <?php endif; ?>
             </div>
             <div class="form-group">
                 <label>Nom</label>
                 <input type="text" name="last_name"
                        value="<?= htmlspecialchars($data['last_name']) ?>">
+                <?php if (!empty($fieldErrors['last_name'])): ?>
+                    <div class="field-error"><?= htmlspecialchars($fieldErrors['last_name']) ?></div>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -97,7 +101,16 @@ require_once '../includes/header.php';
             <label>Email</label>
             <input type="email" name="email"
                    value="<?= htmlspecialchars($data['email']) ?>">
+            <?php if (!empty($fieldErrors['email'])): ?>
+                <div class="field-error"><?= htmlspecialchars($fieldErrors['email']) ?></div>
+            <?php endif; ?>
         </div>
+
+        <?php if (!empty($errors) && empty($fieldErrors['student_number']) && empty($fieldErrors['first_name']) && empty($fieldErrors['last_name']) && empty($fieldErrors['email'])): ?>
+            <?php foreach ($errors as $err): ?>
+                <div class="alert danger"><?= htmlspecialchars($err) ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
     </form>

@@ -6,6 +6,7 @@ if ($_SESSION['user_role'] !== 'admin') {
 require_once '../config/db.php';
 
 $errors = [];
+$fieldErrors = [];
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,11 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $last_name  = trim($_POST['last_name']);
     $email      = trim($_POST['email']);
     // ── Validate ──────────────────────────
-    if (empty($student_number)) $errors[] = "Le matricule est obligatoire.";
-    if (empty($first_name)) $errors[] = "Le prénom est obligatoire.";
-    if (empty($last_name))  $errors[] = "Le nom est obligatoire.";
-    if (empty($email))      $errors[] = "L'email est obligatoire.";
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Email invalide.";
+    if (empty($student_number)) $fieldErrors['student_number'] = "Le matricule est obligatoire.";
+    if (empty($first_name)) $fieldErrors['first_name'] = "Le prénom est obligatoire.";
+    if (empty($last_name))  $fieldErrors['last_name'] = "Le nom est obligatoire.";
+    if (empty($email))      $fieldErrors['email'] = "L'email est obligatoire.";
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $fieldErrors['email'] = "Email invalide.";
+
+    $errors = array_values($fieldErrors);
 
     // ── Check for duplicate matricule/email
     if (empty($errors)) {
@@ -56,11 +59,9 @@ require_once '../includes/header.php';
 </div>
 
 <?php if (!empty($errors)): ?>
-    <div class="alert danger">
-        <?php foreach ($errors as $e): ?>
-            <p><?= htmlspecialchars($e) ?></p>
-        <?php endforeach; ?>
-    </div>
+    <?php foreach ($errors as $e): ?>
+        <div class="alert danger"><?= htmlspecialchars($e) ?></div>
+    <?php endforeach; ?>
 <?php endif; ?>
 
 <div class="card">
@@ -71,6 +72,7 @@ require_once '../includes/header.php';
             <input type="text" name="student_number"
                    value="<?= htmlspecialchars($_POST['student_number'] ?? '') ?>"
                    placeholder="ex: 2424...">
+          
         </div>
 
         <div class="form-row">
@@ -78,11 +80,13 @@ require_once '../includes/header.php';
                 <label>Prénom</label>
                 <input type="text" name="first_name"
                        value="<?= htmlspecialchars($_POST['first_name'] ?? '') ?>">
+               
             </div>
             <div class="form-group">
                 <label>Nom</label>
                 <input type="text" name="last_name"
                        value="<?= htmlspecialchars($_POST['last_name'] ?? '') ?>">
+             
             </div>
         </div>
 
@@ -90,6 +94,7 @@ require_once '../includes/header.php';
             <label>Email</label>
             <input type="email" name="email"
                    value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+          
         </div>
 
        <div class="form-info">
