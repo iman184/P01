@@ -6,6 +6,8 @@ if ($_SESSION['user_role'] !== 'students') {
 require_once '../config/db.php';
 require_once '../vendor/autoload.php';
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 use Dompdf\Dompdf;
 
 $student_id = $_SESSION['user_id'];

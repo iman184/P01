@@ -1,108 +1,304 @@
 <?php
 require_once '../auth/session.php';
-
 if ($_SESSION['user_role'] !== 'teachers') {
-    header("Location: ../auth/login.php");
-    exit;
+    header("Location: ../auth/login.php"); exit;
 }
-
 require_once '../config/db.php';
 
-// Get teacher ID from session
 $teacher_id = $_SESSION['user_id'];
 
-// Fetch teacher info and their module
-$teacher = $pdo->prepare("
-    SELECT id, first_name, last_name
-    FROM teachers WHERE id = ?
-")->fetchAll(PDO::FETCH_ASSOC);
-$teacher = $teacher[0] ?? null;
+// ── Get teacher's module ──────────────────
+$stmt = $pdo->prepare("
+    SELECT id, code, title, coefficient FROM modules WHERE teacher_id = ?
+");
+$stmt->execute([$teacher_id]);
+$module = $stmt->fetch();
 
-if (!$teacher) {
-    header("Location: ../auth/login.php");
+if (!$module) {
+    require_once '../includes/teacher_header.php';
+    echo '<div class="alert amber">
+            ⚠️ Aucun module assigné. Contactez l\'administrateur.
+          </div>';
+    require_once '../includes/teacher_footer.php';
     exit;
 }
 
-// Fetch teacher's module
-$module = $pdo->prepare("
-    SELECT id, code, title
-    FROM modules WHERE teacher_id = ?
-")->fetchAll(PDO::FETCH_ASSOC);
-$module = $module[0] ?? null;
+$errors  = [];
+$success = '';
+$mode    = 'add'; // 'add' or 'edit'
+$editing_note = null;
+$prefill_student_id = (int) ($_GET['student_id'] ?? 0);
 
-// Fetch notes for teacher's module
-$notes = [];
-if ($module) {
+// ── Load note for editing ─────────────────
+if (isset($_GET['edit'])) {
+    $note_id = (int) $_GET['edit'];
     $stmt = $pdo->prepare("
-        SELECT n.id, n.grade,
-               s.first_name, s.last_name, s.student_number,
-               m.code, m.coefficient
+        SELECT n.*, s.first_name, s.last_name, s.student_number
         FROM notes n
         JOIN students s ON n.student_id = s.id
-        JOIN modules m ON n.module_id = m.id
-        WHERE m.id = ?
-        ORDER BY s.last_name ASC
+        WHERE n.id = ? AND n.module_id = ?
     ");
-    $stmt->execute([$module['id']]);
-    $notes = $stmt->fetchAll();
+    $stmt->execute([$note_id, $module['id']]);
+    $editing_note = $stmt->fetch();
+
+    if (!$editing_note) {
+        header("Location: notes.php"); exit;
+    }
+    $mode = 'edit';
 }
 
-require_once '../includes/header.php';
+// ── Handle form submit ────────────────────
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $form_mode  = $_POST['form_mode'];
+    $grade      = trim($_POST['grade']);
+
+    if (!is_numeric($grade))       $errors[] = "La note doit être un nombre.";
+    if ($grade < 0 || $grade > 20) $errors[] = "La note doit être entre 0 et 20.";
+
+    // ── ADD ───────────────────────────────
+    if ($form_mode === 'add' && empty($errors)) {
+        $student_id = (int) $_POST['student_id'];
+
+        if (!$student_id) {
+            $errors[] = "Veuillez choisir un étudiant.";
+        } else {
+            // Check not already graded
+            $check = $pdo->prepare("
+                SELECT id FROM notes
+                WHERE student_id = ? AND module_id = ?
+            ");
+            $check->execute([$student_id, $module['id']]);
+            if ($check->fetch()) {
+                $errors[] = "Cet étudiant a déjà une note. Utilisez Modifier.";
+            }
+        }
+
+        if (empty($errors)) {
+            $stmt = $pdo->prepare("
+                INSERT INTO notes (student_id, module_id, grade)
+                VALUES (?, ?, ?)
+            ");
+            $stmt->execute([$student_id, $module['id'], $grade]);
+            $success = "Note ajoutée avec succès.";
+        }
+    }
+
+    // ── EDIT ──────────────────────────────
+    if ($form_mode === 'edit' && empty($errors)) {
+        $note_id = (int) $_POST['note_id'];
+
+        $stmt = $pdo->prepare("
+            UPDATE notes SET grade = ? WHERE id = ? AND module_id = ?
+        ");
+        $stmt->execute([$grade, $note_id, $module['id']]);
+        $success = "Note modifiée avec succès.";
+        $mode = 'add';
+        $editing_note = null;
+    }
+}
+
+// ── Students without a grade (for add form) ──
+$ungraded = $pdo->prepare("
+    SELECT s.id, s.student_number, s.first_name, s.last_name
+    FROM students s
+    WHERE s.id NOT IN (
+        SELECT student_id FROM notes WHERE module_id = ?
+    )
+    ORDER BY s.last_name ASC
+");
+$ungraded->execute([$module['id']]);
+$ungraded = $ungraded->fetchAll();
+
+// ── All graded students for the table ─────
+$graded = $pdo->prepare("
+    SELECT n.id AS note_id, n.grade, 
+           s.student_number, s.first_name, s.last_name
+    FROM notes n
+    JOIN students s ON n.student_id = s.id
+    WHERE n.module_id = ?
+    ORDER BY s.last_name ASC
+");
+$graded->execute([$module['id']]);
+$graded = $graded->fetchAll();
+
+require_once '../includes/teacher_header.php';
 ?>
 
 <div class="page-header">
-    <h1>Gestion des Notes - <?= htmlspecialchars($module['code'] ?? 'Aucun module') ?></h1>
-    <?php if ($module): ?>
-        <a href="edit_note.php?module_id=<?= $module['id'] ?>" class="btn btn-primary">Entrer une note</a>
-    <?php endif; ?>
+    <h1>📝 Saisie des Notes</h1>
+    <span class="badge blue" style="font-size:13px;padding:6px 14px">
+        <?= htmlspecialchars($module['code'].' — '.$module['title']) ?>
+        (Coef. <?= $module['coefficient'] ?>)
+    </span>
 </div>
 
-<?php if (!$module): ?>
-    <div class="alert amber">⚠️ Aucun module assigné.</div>
-<?php else: ?>
-    <div class="card">
-        <table>
-            <thead>
-                <tr>
-                    <th>Matricule</th>
-                    <th>Étudiant</th>
-                    <th>Note /20</th>
-                    <th>Mention</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($notes)): ?>
-                <tr>
-                    <td colspan="5" style="text-align:center;color:#888">
-                        Aucune note disponible.
-                    </td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($notes as $n): ?>
-                <tr>
-                    <td><?= htmlspecialchars($n['student_number']) ?></td>
-                    <td><?= htmlspecialchars($n['first_name'] . ' ' . $n['last_name']) ?></td>
-                    <td>
-                        <strong class="<?= $n['grade'] >= 10 ? 'grade-pass' : 'grade-fail' ?>">
-                            <?= htmlspecialchars($n['grade']) ?>
-                        </strong>
-                    </td>
-                    <td><?= mention($n['grade']) ?></td>
-                    <td>
-                        <a href="edit_note.php?id=<?= $n['id'] ?>" class="btn btn-primary">Modifier</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
+<?php if ($success): ?>
+    <div class="alert success"><?= htmlspecialchars($success) ?></div>
+<?php endif; ?>
+
+<?php if (!empty($errors)): ?>
+    <div class="alert danger">
+        <?php foreach ($errors as $e): ?>
+            <p><?= htmlspecialchars($e) ?></p>
+        <?php endforeach; ?>
     </div>
 <?php endif; ?>
 
+<div class="dashboard-grid">
+
+    <!-- Left: form -->
+    <div class="card">
+        <?php if ($mode === 'edit' && $editing_note): ?>
+
+            <!-- EDIT FORM -->
+            <h3>✏️ Modifier la note de
+                <?= htmlspecialchars($editing_note['first_name'].' '.$editing_note['last_name']) ?>
+            </h3>
+            <p style="color:#64748b;font-size:13px;margin-bottom:16px">
+                Matricule : <?= htmlspecialchars($editing_note['student_number']) ?>
+            </p>
+
+            <form method="POST" action="">
+                <input type="hidden" name="form_mode" value="edit">
+                <input type="hidden" name="note_id"
+                       value="<?= $editing_note['id'] ?>">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Note (sur 20)</label>
+                        <input type="number" name="grade"
+                               id="grade_input"
+                               value="<?= htmlspecialchars($editing_note['grade']) ?>"
+                               min="0" max="20" step="0.25">
+                    </div>
+                    <div class="form-group">
+                        <label>Mention</label>
+                        <input type="text" id="mention_display"
+                               disabled style="background:#f8fafc">
+                    </div>
+                </div>
+
+
+                <div style="display:flex;gap:10px">
+                    <button type="submit" class="btn btn-primary">
+                        Enregistrer
+                    </button>
+                    <a href="notes.php" class="btn btn-secondary">
+                        Annuler
+                    </a>
+                </div>
+            </form>
+
+        <?php else: ?>
+
+            <!-- ADD FORM -->
+            <h3>➕ Ajouter une note</h3>
+
+            <?php if (empty($ungraded)): ?>
+                <p style="color:#16a34a;font-size:14px;text-align:center;padding:20px 0">
+                    ✅ Tous les étudiants ont été notés !
+                </p>
+            <?php else: ?>
+
+            <form method="POST" action="">
+                <input type="hidden" name="form_mode" value="add">
+
+                <div class="form-group">
+                    <label>Étudiant</label>
+                    <select name="student_id">
+                        <option value="">-- Choisir un étudiant --</option>
+                        <?php foreach ($ungraded as $s): ?>
+                            <option value="<?= $s['id'] ?>"
+                                <?= ($prefill_student_id == $s['id']) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($s['student_number'].' — '.$s['first_name'].' '.$s['last_name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Note (sur 20)</label>
+                        <input type="number" name="grade"
+                               id="grade_input"
+                               value="<?= htmlspecialchars($_POST['grade'] ?? '') ?>"
+                               min="0" max="20" step="0.25"
+                               placeholder="ex: 14.5">
+                    </div>
+                    <div class="form-group">
+                        <label>Mention</label>
+                        <input type="text" id="mention_display"
+                               disabled style="background:#f8fafc"
+                               placeholder="Entrez une note...">
+                    </div>
+                </div>
+
+                
+
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer la note
+                </button>
+            </form>
+
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+
+    <!-- Right: graded students table -->
+    <div class="teachers-card">
+        <h3>📋 Notes saisies
+            <span style="font-weight:400;font-size:13px;color:#64748b">
+                (<?= count($graded) ?> / <?= count($graded) + count($ungraded) ?>)
+            </span>
+        </h3>
+
+        <?php if (empty($graded)): ?>
+            <p style="color:#94a3b8;font-size:14px;text-align:center;padding:24px 0">
+                Aucune note saisie pour le moment.
+            </p>
+        <?php else: ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Étudiant</th>
+                    <th>Note</th>
+                    <th>Mention</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($graded as $g): ?>
+                <tr>
+                    <td>
+                        <span style="font-size:12px;color:#64748b">
+                            <?= htmlspecialchars($g['student_number']) ?>
+                        </span><br>
+                        <?= htmlspecialchars($g['first_name'].' '.$g['last_name']) ?>
+                    </td>
+                    <td>
+                        <strong class="<?= $g['grade'] >= 10 ? 'grade-pass' : 'grade-fail' ?>">
+                            <?= number_format($g['grade'], 2) ?>
+                        </strong>
+                    </td>
+                    <td><?= mention_badge($g['grade']) ?></td>
+                    <td>
+                        <a href="notes.php?edit=<?= $g['note_id'] ?>"
+                           class="btn btn-secondary"
+                           style="padding:5px 10px;font-size:12px">
+                           ✏️ Modifier
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php endif; ?>
+    </div>
+</div>
+
 <?php
-// ── Helper: grade → mention ───────────────
-function mention($grade) {
+function mention_badge($grade) {
     if ($grade >= 16) return '<span class="badge green">Très bien</span>';
     if ($grade >= 14) return '<span class="badge blue">Bien</span>';
     if ($grade >= 12) return '<span class="badge purple">Assez bien</span>';
@@ -111,4 +307,26 @@ function mention($grade) {
 }
 ?>
 
-<?php require_once '../includes/footer.php'; ?>
+<!-- Live mention JS -->
+<script>
+const gradeInput   = document.getElementById('grade_input');
+const mentionBox   = document.getElementById('mention_display');
+
+if (gradeInput) {
+    gradeInput.addEventListener('input', updateMention);
+    updateMention();
+}
+
+function updateMention() {
+    if (!gradeInput || !mentionBox) return;
+    const g = parseFloat(gradeInput.value);
+    if (isNaN(g) || g < 0 || g > 20) { mentionBox.value = '—'; return; }
+    if (g >= 16)      mentionBox.value = '🏆 Très bien';
+    else if (g >= 14) mentionBox.value = '✅ Bien';
+    else if (g >= 12) mentionBox.value = '📘 Assez bien';
+    else if (g >= 10) mentionBox.value = '🟡 Passable';
+    else              mentionBox.value = '❌ Insuffisant';
+}
+</script>
+
+<?php require_once '../includes/teacher_footer.php'; ?>
