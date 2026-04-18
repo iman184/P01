@@ -25,7 +25,7 @@ $teachers = $pdo->query("
     SELECT t.id, t.first_name, t.last_name, t.email,
            t.subject, t.is_active, t.created_at,
            t.must_change_password,
-           m.name AS module_name, m.code AS module_code
+           m.title AS module_name, m.code AS module_code
     FROM teachers t
     LEFT JOIN modules m ON m.teacher_id = t.id
     ORDER BY t.last_name ASC
@@ -54,18 +54,16 @@ require_once '../includes/header.php';
     <?php endif; ?>
 <?php endif; ?>
 
-<div class="card">
-    <table>
+<div class="card teachers-card">
+    <table class="teachers-table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Nom complet</th>
                 <th>Email</th>
-                <th>Spécialité</th>
                 <th>Module</th>
                 <th>Statut</th>
                 <th>Mot de passe</th>
-                <th>Créé le</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -86,13 +84,13 @@ require_once '../includes/header.php';
                     </strong>
                 </td>
                 <td><?= htmlspecialchars($t['email']) ?></td>
-                <td><?= htmlspecialchars($t['subject'] ?? '—') ?></td>
+              
                 <td>
                     <?php if ($t['module_code']): ?>
                         <span class="badge blue">
                             <?= htmlspecialchars($t['module_code']) ?>
                         </span>
-                        <?= htmlspecialchars($t['module_name']) ?>
+                      
                     <?php else: ?>
                         <span class="badge amber">Non assigné</span>
                     <?php endif; ?>
@@ -111,9 +109,7 @@ require_once '../includes/header.php';
                         <span class="badge green">Changé</span>
                     <?php endif; ?>
                 </td>
-                <td>
-                    <?= date('d/m/Y', strtotime($t['created_at'])) ?>
-                </td>
+               
                 <td>
                     <a href="edit_teacher.php?id=<?= $t['id'] ?>"
                        class="btn btn-primary">Modifier</a>

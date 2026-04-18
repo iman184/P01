@@ -422,3 +422,129 @@ table td:last-child a.btn {
     padding: 5px 9px !important;
     font-size: 12px !important;
 }
+
+/* ── Teachers page only ─────────────────── */
+.teachers-card {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+.teachers-table {
+    width: 100%;
+    min-width: 900px;
+}
+
+@media (max-width: 1100px) {
+    .teachers-card {
+        max-width: 100%;
+    }
+}
+
+
+
+
+
+
+
+/* ── Dashboard 2-col grid ────────────────── */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+    align-items: start;
+}
+
+/* ── Info list (personal info card) ─────── */
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+}
+.info-row:last-child {
+    border-bottom: none;
+}
+.info-label {
+    color: #64748b;
+    font-weight: 500;
+}
+.info-value {
+    color: #1e293b;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* ── Progress bar ────────────────────────── */
+.progress-bar-bg {
+    width: 100%;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+}
+.progress-bar-fill.pass { background: #22c55e; }
+.progress-bar-fill.fail { background: #ef4444; }
+
+/* ── Sidebar user block ──────────────────── */
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    margin: 0 8px 12px;
+    background: #334155;
+    border-radius: 10px;
+}
+.sidebar-user-avatar {
+    width: 36px;
+    height: 36px;
+    background: #3b82f6;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.sidebar-user-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.sidebar-user-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebar-user-role {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+/* ── Coral stat icon ─────────────────────── */
+.stat-icon.coral { background: #fff1f2; }
+
+/* ── Table footer row ────────────────────── */
+tfoot td {
+    padding: 12px 14px;
+    font-size: 14px;
+}

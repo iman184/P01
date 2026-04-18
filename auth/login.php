@@ -13,6 +13,22 @@ require_once '../config/db.php';
 
 $error = '';
 
+function password_matches($inputPassword, $userRow) {
+    $storedPassword = $userRow['password_hash'] ?? $userRow['password'] ?? null;
+
+    if (!$storedPassword) {
+        return false;
+    }
+
+    // Normal case: passwords are hashed with password_hash().
+    if (password_verify($inputPassword, $storedPassword)) {
+        return true;
+    }
+
+    // Legacy fallback: some old rows may still store plain text.
+    return hash_equals((string) $storedPassword, (string) $inputPassword);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email    = trim($_POST['email']);
@@ -30,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("SELECT * FROM admin WHERE email = ?");
         $stmt->execute([$email]);
         $row = $stmt->fetch();
-        if ($row && password_verify($password, $row['password_hash'])) {
+        if ($row && password_matches($password, $row)) {
             $user = $row;
             $role = 'admin';
         }
@@ -40,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("SELECT * FROM teachers WHERE email = ?");
             $stmt->execute([$email]);
             $row = $stmt->fetch();
-            if ($row && password_verify($password, $row['password'])) {
+            if ($row && password_matches($password, $row)) {
                 $user = $row;
                 $role = 'teachers';
             }
@@ -51,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("SELECT * FROM students WHERE email = ?");
             $stmt->execute([$email]);
             $row = $stmt->fetch();
-            if ($row && password_verify($password, $row['password_hash'])) {
+            if ($row && password_matches($password, $row)) {
                 $user = $row;
                 $role = 'students';
             }

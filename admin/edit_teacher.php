@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $data = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $teacher;
 
 // ── Load assigned module ──────────────────
-$mod = $pdo->prepare("SELECT code, name FROM modules WHERE teacher_id = ?");
+$mod = $pdo->prepare("SELECT code, title FROM modules WHERE teacher_id = ?");
 $mod->execute([$id]);
 $assigned = $mod->fetch();
 
@@ -91,7 +91,7 @@ require_once '../includes/header.php';
     <div class="alert" style="background:#eff6ff;color:#1d4ed8;margin-bottom:20px">
         📚 Module assigné :
         <strong>
-            <?= htmlspecialchars($assigned['code'].' — '.$assigned['name']) ?>
+            <?= htmlspecialchars($assigned['code'].' — '.$assigned['title']) ?>
         </strong>
     </div>
 <?php endif; ?>
