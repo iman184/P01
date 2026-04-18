@@ -307,3 +307,118 @@ tr:hover td {
     color: #94a3b8;
     margin-top: 4px;
 }
+/* ── Average box ─────────────────────────── */
+.average-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1.5px solid;
+}
+.average-box.pass {
+    background: #f0fdf4;
+    border-color: #86efac;
+}
+.average-box.fail {
+    background: #fff1f2;
+    border-color: #fca5a5;
+}
+.average-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.average-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+}
+.average-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+}
+.average-score {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1e293b;
+}
+.average-score span {
+    font-size: 18px;
+    color: #64748b;
+}
+.average-badge {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* ── Grade colors ────────────────────────── */
+.grade-pass { color: #16a34a; }
+.grade-fail { color: #dc2626; }
+
+/* ── Red badge ───────────────────────────── */
+.badge.red { background: #fee2e2; color: #991b1b; }
+
+/* ── Textarea ────────────────────────────── */
+.form-group textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    transition: border 0.2s;
+}
+.form-group textarea:focus {
+    border-color: #3b82f6;
+}
+
+/* ── Card toolbar filter ─────────────────── */
+.card-toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-form {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex: 1;
+}
+
+.filter-form .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.filter-form .btn {
+    height: 36px;
+    padding: 8px 16px;
+}
+
+/* ── Table action buttons ────────────────── */
+table td:last-child {
+    width: 220px;
+    min-width: 220px;
+    padding: 12px 8px !important;
+}
+
+table td:last-child a.btn {
+    display: inline-block !important;
+    float: left;
+    margin-right: 4px !important;
+    margin-bottom: 0 !important;
+    padding: 5px 9px !important;
+    font-size: 12px !important;
+}
