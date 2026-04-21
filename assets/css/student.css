@@ -1,0 +1,268 @@
+/* ──────────────────────────────────────────
+   STUDENT PAGES - STYLES
+   ────────────────────────────────────────── */
+
+/* Student Dashboard */
+.student-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.student-page-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.student-page-header p {
+    margin: 4px 0 0;
+    color: var(--gray-500);
+}
+
+/* Profile Section */
+.student-profile-card {
+    margin-bottom: 24px;
+}
+
+.profile-content {
+    display: flex;
+    gap: 24px;
+    align-items: start;
+}
+
+.profile-image-container {
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--gray-100);
+    border: 3px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    color: var(--dark);
+}
+
+.profile-info p {
+    margin: 0 0 4px;
+    color: var(--gray-500);
+    font-size: 14px;
+}
+
+.profile-info strong {
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+#profile-image-input {
+    display: none;
+}
+
+#upload-status {
+    display: none;
+    font-size: 13px;
+}
+
+#upload-status.upload-success {
+    color: var(--success-light);
+}
+
+#upload-status.upload-error {
+    color: var(--danger);
+}
+
+/* Releve Sheet Styles */
+.releve-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.releve-sheet {
+    background: white;
+    border: 1px solid var(--dark);
+    padding: 18px;
+    color: var(--dark);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.sheet-head {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 14px;
+    align-items: start;
+    border-bottom: 1px solid var(--dark);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.sheet-head p {
+    margin: 2px 0;
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+.sheet-head .arabic {
+    direction: rtl;
+    text-align: right;
+}
+
+.sheet-center {
+    text-align: center;
+}
+
+.sheet-center img {
+    width: 72px;
+    height: auto;
+    margin-bottom: 4px;
+}
+
+.sheet-center h2 {
+    margin: 4px 0;
+    letter-spacing: 1px;
+    font-size: 27px;
+}
+
+.sheet-center .sub {
+    font-size: 12px;
+    margin: 0;
+}
+
+/* Identity & Grades Tables */
+.identity-table,
+.grades-table-usthb {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.identity-table td,
+.grades-table-usthb th,
+.grades-table-usthb td {
+    border: 1px solid var(--dark);
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.identity-table .label {
+    width: 20%;
+    font-weight: 700;
+    background: var(--gray-100);
+}
+
+.grades-table-usthb th {
+    font-weight: 700;
+    text-align: center;
+    background: #eef2ff;
+}
+
+.grades-table-usthb td {
+    text-align: center;
+}
+
+.grades-table-usthb td.module {
+    text-align: left;
+}
+
+.grade-ok {
+    color: var(--success-dark);
+    font-weight: 700;
+}
+
+.grade-bad {
+    color: var(--danger-dark);
+    font-weight: 700;
+}
+
+.summary-row td {
+    font-weight: 700;
+    background: var(--gray-100);
+    text-align: center;
+}
+
+.summary-row td:first-child {
+    text-align: left;
+}
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-box {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+}
+
+.stat-box .label {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.stat-box .value {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* Grades Table - Dashboard */
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.grades-table th {
+    background: var(--gray-100);
+    padding: 8px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.grades-table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.grades-table tr:hover {
+    background: var(--gray-50);
+}

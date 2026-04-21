@@ -1,0 +1,146 @@
+/* ──────────────────────────────────────────
+   ADMIN PAGES - STYLES
+   ────────────────────────────────────────── */
+
+/* Search Input */
+.admin-search-box {
+    margin-bottom: 15px;
+}
+
+.admin-search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.admin-search-box input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Admin Table Styles */
+.admin-table {
+    font-size: 13px;
+}
+
+.admin-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.admin-table th {
+    background: var(--gray-100);
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.admin-table tr:hover {
+    background: var(--gray-50);
+}
+
+.admin-table td {
+    padding: 6px;
+}
+
+.admin-table-compact {
+    font-size: 12px;
+}
+
+.admin-table-compact td {
+    padding: 6px;
+}
+
+.table-col-email {
+    font-size: 12px;
+}
+
+.table-col-status {
+    text-align: center;
+}
+
+.table-col-login {
+    font-size: 11px;
+}
+
+/* Status Badge Column */
+.status-badge {
+    text-align: center;
+}
+
+.status-badge span {
+    display: inline-block;
+}
+
+/* Action Buttons in Tables */
+.table-actions {
+    padding: 6px;
+    text-align: center;
+}
+
+.table-actions .btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.table-actions .btn:last-child {
+    margin-right: 0;
+}
+
+/* Dashboard Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.stat-card .value {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: var(--gray-500);
+    padding: 24px;
+    font-style: italic;
+}
+
+/* Card Wrapper */
+.admin-card {
+    padding: 12px;
+}
+
+.admin-card table {
+    width: 100%;
+}

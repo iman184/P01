@@ -35,83 +35,6 @@ function is_student_online($last_activity) {
 require_once '../includes/header.php';
 ?>
 
-<script>
-// AJAX function to refresh online status without reloading page
-function updateOnlineStatus() {
-    fetch('get_student_status.php')
-        .then(response => response.json())
-        .then(data => {
-            // Update each student's status badge and last login
-            data.forEach(student => {
-                const row = document.querySelector(`[data-student-id="${student.id}"]`);
-                if (row) {
-                    // Update status badge
-                    const badgeEl = row.querySelector('.status-badge');
-                    if (badgeEl) {
-                        if (student.online) {
-                            badgeEl.innerHTML = '<span class="badge green">🟢</span>';
-                        } else {
-                            badgeEl.innerHTML = '<span class="badge" style="background: #cbd5e1; color: #475569;">🔴</span>';
-                        }
-                    }
-                    
-                    // Update last login column
-                    const loginCells = row.querySelectorAll('td');
-                    if (loginCells.length >= 5) {
-                        const loginCell = loginCells[4]; // 5th column is last login
-                        if (student.online) {
-                            loginCell.innerHTML = '<span style="color: #10b981; font-weight: bold;">En ligne</span>';
-                        } else if (student.last_login) {
-                            const date = new Date(student.last_login);
-                            const formatted = date.toLocaleDateString('fr-FR') + ' ' + date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'});
-                            loginCell.textContent = formatted;
-                        } else {
-                            loginCell.innerHTML = '<span style="color: #94a3b8; font-size: 10px;">Jamais</span>';
-                        }
-                    }
-                }
-            });
-        })
-        .catch(err => console.error('Status update error:', err));
-}
-
-// Auto-refresh every 3 seconds
-setInterval(updateOnlineStatus, 3000);
-
-// Also update when page loads
-document.addEventListener('DOMContentLoaded', updateOnlineStatus);
-
-// Search functionality
-function filterStudents() {
-    const searchInput = document.getElementById('searchInput');
-    const filter = searchInput.value.toLowerCase();
-    const table = document.querySelector('table tbody');
-    const rows = table.querySelectorAll('tr');
-    
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        if (cells.length > 0) {
-            const matricule = cells[0].textContent.toLowerCase(); // Matricule
-            const fullName = cells[1].textContent.toLowerCase();   // Nom complet
-            
-            if (matricule.includes(filter) || fullName.includes(filter)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        }
-    });
-}
-
-// Add search listener
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('keyup', filterStudents);
-    }
-});
-</script>
-
 <div class="page-header">
     <h1>Gestion des Étudiants</h1>
     <a href="add_student.php" class="btn btn-primary">+ Ajouter un étudiant</a>
@@ -127,26 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
     <?php endif; ?>
 <?php endif; ?>
 
-<div style="margin-bottom: 15px;">
-    <input 
-        type="text" 
-        id="searchInput" 
-        placeholder="Rechercher par matricule ou nom et prénom..." 
-        style="width: 100%; max-width: 400px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px;"
-    >
+<div class="admin-search-box">
+    <input type="text" id="searchInput" placeholder="Rechercher par matricule ou nom et prénom...">
 </div>
 
-<div class="card" style="padding: 12px;">
-    <table style="font-size: 13px;">
+<div class="admin-card">
+    <table class="admin-table">
         <thead>
             <tr>
-                <th style="padding: 8px 6px;">Matricule</th>
-                <th style="padding: 8px 6px;">Nom complet</th>
-                <th style="padding: 8px 6px;">Email</th>
-                <th style="padding: 8px 6px;">Statut</th>
-                <th style="padding: 8px 6px;">Dernière connexion</th>
-                <th style="padding: 8px 6px;">Mot de passe</th>
-                <th style="padding: 8px 6px;">Actions</th>
+                <th>Matricule</th>
+                <th>Nom complet</th>
+                <th>Email</th>
+                <th>Statut</th>
+                <th>Dernière connexion</th>
+                <th>Mot de passe</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -155,45 +73,44 @@ document.addEventListener('DOMContentLoaded', function() {
         <?php else: ?>
             <?php foreach ($students as $s): ?>
             <tr data-student-id="<?= $s['id'] ?>">
-                <td style="padding: 6px;"><?= htmlspecialchars($s['student_number']) ?></td>
-                <td style="padding: 6px;"><?= htmlspecialchars($s['first_name'] . ' ' . $s['last_name']) ?></td>
-                <td style="padding: 6px; font-size: 12px;"><?= htmlspecialchars($s['email']) ?></td>
-                <td style="padding: 6px; text-align: center;" class="status-badge">
+                <td><?= htmlspecialchars($s['student_number']) ?></td>
+                <td><?= htmlspecialchars($s['first_name'] . ' ' . $s['last_name']) ?></td>
+                <td class="table-col-email"><?= htmlspecialchars($s['email']) ?></td>
+                <td class="table-col-status" class="status-badge">
                     <?php 
                         $online = is_student_online($s['last_activity']);
                         if ($online) {
                             echo '<span class="badge green">🟢</span>';
                         } else {
-                            echo '<span class="badge" style="background: #cbd5e1; color: #475569;">🔴</span>';
+                            echo '<span class="badge" style="background: var(--offline); color: var(--offline-text);">🔴</span>';
                         }
                     ?>
                 </td>
-                <td style="padding: 6px; font-size: 11px;">
+                <td class="table-col-login">
                     <?php 
                         $online = is_student_online($s['last_activity']);
                         if ($online) {
-                            echo '<span style="color: #10b981; font-weight: bold;">En ligne</span>';
+                            echo '<span class="status-online">En ligne</span>';
                         } elseif ($s['last_login']) {
                             $login_date = new DateTime($s['last_login']);
                             echo $login_date->format('d/m/Y H:i');
                         } else {
-                            echo '<span style="color: #94a3b8; font-size: 10px;">Jamais</span>';
+                            echo '<span class="status-never">Jamais</span>';
                         }
                     ?>
                 </td>
-                <td style="padding: 6px;">
+                <td>
                     <?php if ($s['must_change_password']): ?>
-                        <span class="badge amber" style="font-size: 11px;">Temp</span>
+                        <span class="badge amber">Temp</span>
                     <?php else: ?>
-                        <span class="badge green" style="font-size: 11px;">Changé</span>
+                        <span class="badge green">Changé</span>
                     <?php endif; ?>
                 </td>
-                <td style="padding: 6px;">
-                    <a href="edit_student.php?id=<?= $s['id'] ?>" class="btn btn-primary" style="padding: 4px 8px; font-size: 12px;">Modifier</a>
+                <td class="table-actions">
+                    <a href="edit_student.php?id=<?= $s['id'] ?>" class="btn btn-primary">Modifier</a>
                     <a href="students.php?delete=<?= $s['id'] ?>"
                        class="btn btn-danger"
-                       onclick="return confirm('Supprimer cet étudiant ?')"
-                       style="padding: 4px 8px; font-size: 12px;">Supprimer</a>
+                       onclick="return confirm('Supprimer cet étudiant ?')">Supprimer</a>
                 </td>
             </tr>
             <?php endforeach; ?>

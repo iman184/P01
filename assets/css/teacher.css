@@ -1,0 +1,136 @@
+/* ──────────────────────────────────────────
+   TEACHER PAGES - STYLES
+   ────────────────────────────────────────── */
+
+/* Teacher Dashboard */
+.teacher-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.teacher-page-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* Teacher Tables */
+.teacher-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.teacher-table th {
+    background: var(--gray-100);
+    padding: 8px 6px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.teacher-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.teacher-table tr:hover {
+    background: var(--gray-50);
+}
+
+/* Grade Input */
+.grade-input {
+    width: 60px;
+    padding: 4px 6px;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.grade-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Coefficient Select */
+.coefficient-select {
+    padding: 4px 6px;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.coefficient-select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Module Select */
+.module-select,
+.teacher-select {
+    padding: 6px 8px;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    font-size: 13px;
+    min-width: 200px;
+}
+
+.module-select:focus,
+.teacher-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Student List */
+.student-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.student-list li {
+    padding: 10px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.student-list li:hover {
+    background: var(--gray-50);
+}
+
+.student-list li:last-child {
+    border-bottom: none;
+}
+
+/* Notes Grid */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.note-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.note-card h4 {
+    margin: 0 0 8px;
+    color: var(--dark);
+}
+
+.note-card p {
+    margin: 0;
+    color: var(--gray-600);
+    font-size: 13px;
+}

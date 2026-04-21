@@ -1,0 +1,74 @@
+/* ──────────────────────────────────────────
+   COLOR VARIABLES & SHARED STYLES
+   ────────────────────────────────────────── */
+
+:root {
+    /* Brand Colors */
+    --primary: #3b82f6;
+    --primary-light: #eff6ff;
+    --success: #10b981;
+    --success-dark: #166534;
+    --success-light: #16a34a;
+    --danger: #ef4444;
+    --danger-dark: #991b1b;
+    --warning: #f59e0b;
+    --warning-light: #fbbf24;
+    --info: #06b6d4;
+    
+    /* Neutral Colors */
+    --dark: #0f172a;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --light: #f8fafc;
+    
+    /* Status Colors */
+    --online: #10b981;
+    --offline: #cbd5e1;
+    --offline-text: #475569;
+    --never: #94a3b8;
+}
+
+/* Badge Styles */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.badge.green {
+    background: var(--success);
+    color: white;
+}
+
+.badge.amber {
+    background: var(--warning);
+    color: #78350f;
+}
+
+.badge.red {
+    background: var(--danger);
+    color: white;
+}
+
+/* Status Text Styles */
+.status-online {
+    color: var(--online);
+    font-weight: bold;
+}
+
+.status-offline {
+    background: var(--offline);
+    color: var(--offline-text);
+}
+
+.status-never {
+    color: var(--never);
+    font-size: 10px;
+}

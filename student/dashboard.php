@@ -49,7 +49,7 @@ require_once '../includes/student_header.php';
 ?>
 
 <!-- Welcome -->
-<div class="page-header">
+<div class="student-page-header">
     <div>
         <h1>Bonjour, <?= htmlspecialchars($student['first_name']) ?> 👋</h1>
         <p>Voici votre tableau de bord étudiant</p>
@@ -58,122 +58,39 @@ require_once '../includes/student_header.php';
 </div>
 
 <!-- Profile Image Section -->
-<div class="card" style="margin-bottom: 24px;">
-    <div style="display: flex; gap: 24px; align-items: start;">
-        <div style="flex-shrink: 0;">
-            <div id="profile-image-container" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; background: #f0f4f8; border: 3px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 48px;">
+<div class="card student-profile-card">
+    <div class="profile-content">
+        <div class="profile-image-container">
+            <div id="profile-image-container" class="profile-avatar">
                 <?php if ($student['profile_image']): ?>
-                    <img src="../assets/uploads/student_profiles/<?= htmlspecialchars($student['profile_image']) ?>" alt="Profil" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="../assets/uploads/student_profiles/<?= htmlspecialchars($student['profile_image']) ?>" alt="Profil">
                 <?php else: ?>
                     <span>📷</span>
                 <?php endif; ?>
             </div>
         </div>
-        <div style="flex: 1;">
-            <h3 style="margin: 0 0 8px; font-size: 20px;">Votre profil</h3>
-            <p style="margin: 0 0 4px; color: #64748b;">
+        <div class="profile-info">
+            <h3>Votre profil</h3>
+            <p>
                 <strong>Matricule:</strong> <?= htmlspecialchars($student['student_number']) ?>
             </p>
-            <p style="margin: 0 0 4px; color: #64748b;">
+            <p>
                 <strong>Nom:</strong> <?= htmlspecialchars($student['first_name'] . ' ' . $student['last_name']) ?>
             </p>
-            <p style="margin: 0 0 12px; color: #64748b;">
+            <p>
                 <strong>Email:</strong> <?= htmlspecialchars($student['email']) ?>
             </p>
             
-            <div style="display: flex; gap: 8px; align-items: center;">
-                <input type="file" id="profile-image-input" accept="image/*" style="display: none;">
-                <button onclick="document.getElementById('profile-image-input').click();" class="btn btn-secondary" style="font-size: 14px; padding: 8px 16px;">
+            <div class="profile-actions">
+                <input type="file" id="profile-image-input" accept="image/*">
+                <button onclick="document.getElementById('profile-image-input').click();" class="btn btn-secondary">
                     📤 Changer la photo
                 </button>
-                <span id="upload-status" style="font-size: 13px; color: #64748b;"></span>
+                <span id="upload-status"></span>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    #upload-status {
-        display: none;
-    }
-    .upload-success { color: #16a34a !important; }
-    .upload-error { color: #dc2626 !important; }
-</style>
-
-<script>
-document.getElementById('profile-image-input').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const statusEl = document.getElementById('upload-status');
-    const formData = new FormData();
-    formData.append('profile_image', file);
-
-    statusEl.textContent = '⏳ Téléchargement en cours...';
-    statusEl.style.display = 'inline-block';
-    statusEl.className = '';
-
-    fetch('./upload_profile_image.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            statusEl.textContent = '✓ Image mise à jour!';
-            statusEl.className = 'upload-success';
-            
-            // Update the profile image in dashboard
-            const img = document.querySelector('#profile-image-container img');
-            if (img) {
-                img.src = data.image_url + '?t=' + Date.now();
-            } else {
-                // If no image existed, create one
-                const container = document.getElementById('profile-image-container');
-                const newImg = document.createElement('img');
-                newImg.src = data.image_url + '?t=' + Date.now();
-                newImg.alt = 'Profil';
-                newImg.style.width = '100%';
-                newImg.style.height = '100%';
-                newImg.style.objectFit = 'cover';
-                container.innerHTML = '';
-                container.appendChild(newImg);
-            }
-            
-            // Update sidebar avatar
-            const sidebarAvatar = document.querySelector('.sidebar-user-avatar');
-            if (sidebarAvatar) {
-                const sidebarImg = sidebarAvatar.querySelector('img');
-                if (sidebarImg) {
-                    sidebarImg.src = data.image_url + '?t=' + Date.now();
-                } else {
-                    const newImg = document.createElement('img');
-                    newImg.src = data.image_url + '?t=' + Date.now();
-                    newImg.alt = 'Profil';
-                    newImg.style.width = '100%';
-                    newImg.style.height = '100%';
-                    newImg.style.objectFit = 'cover';
-                    newImg.style.borderRadius = '50%';
-                    sidebarAvatar.innerHTML = '';
-                    sidebarAvatar.appendChild(newImg);
-                }
-            }
-            
-            setTimeout(() => { statusEl.style.display = 'none'; }, 3000);
-        } else {
-            statusEl.textContent = '✗ ' + data.message;
-            statusEl.className = 'upload-error';
-        }
-    })
-    .catch(error => {
-        statusEl.textContent = '✗ Erreur: ' + error.message;
-        statusEl.className = 'upload-error';
-    });
-
-    // Reset input
-    this.value = '';
-});
-</script>
 
 <!-- Stat cards -->
 <div class="stats-grid">
