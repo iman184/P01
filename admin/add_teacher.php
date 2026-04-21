@@ -31,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // ── Insert ────────────────────────────
-    // Note: column is `password` not `password_hash`
+    // Note: column is `password_hash`
     // must_change_password defaults to 1 automatically
     if (empty($errors)) {
         $hashed = password_hash('teacher123', PASSWORD_BCRYPT);
 
         $stmt = $pdo->prepare("
             INSERT INTO teachers
-                (first_name, last_name, email, subject, password, is_active)
+                (first_name, last_name, email, subject, password_hash, is_active)
             VALUES (?, ?, ?, ?, ?, ?)
         ");
         $stmt->execute([
@@ -96,7 +96,7 @@ require_once '../includes/header.php';
         </div>
 
         <div class="form-group">
-            <label>Spécialité <span style="color:#999">(optionnel)</span></label>
+            <label>Spécialité <span class="optional">(optionnel)</span></label>
             <input type="text" name="subject"
                    value="<?= htmlspecialchars($_POST['subject'] ?? '') ?>"
                    placeholder="ex: Mathématiques, Informatique...">
@@ -104,7 +104,7 @@ require_once '../includes/header.php';
 
         <!-- is_active toggle -->
         <div class="form-group">
-            <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+            <label class="flex-center gap-md" style="cursor:pointer">
                 <input type="checkbox" name="is_active" value="1" checked
                        style="width:16px;height:16px">
                 Compte actif

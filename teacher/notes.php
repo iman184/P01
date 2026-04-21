@@ -127,7 +127,7 @@ require_once '../includes/teacher_header.php';
 
 <div class="page-header">
     <h1>📝 Saisie des Notes</h1>
-    <span class="badge blue" style="font-size:13px;padding:6px 14px">
+    <span class="badge blue text-xs px-md py-sm">
         <?= htmlspecialchars($module['code'].' — '.$module['title']) ?>
         (Coef. <?= $module['coefficient'] ?>)
     </span>
@@ -155,7 +155,7 @@ require_once '../includes/teacher_header.php';
             <h3>✏️ Modifier la note de
                 <?= htmlspecialchars($editing_note['first_name'].' '.$editing_note['last_name']) ?>
             </h3>
-            <p style="color:#64748b;font-size:13px;margin-bottom:16px">
+            <p class="text-secondary text-xs mb-lg">
                 Matricule : <?= htmlspecialchars($editing_note['student_number']) ?>
             </p>
 
@@ -175,12 +175,12 @@ require_once '../includes/teacher_header.php';
                     <div class="form-group">
                         <label>Mention</label>
                         <input type="text" id="mention_display"
-                               disabled style="background:#f8fafc">
+                               disabled class="bg-secondary">
                     </div>
                 </div>
 
 
-                <div style="display:flex;gap:10px">
+                <div class="flex gap-md">
                     <button type="submit" class="btn btn-primary">
                         Enregistrer
                     </button>
@@ -196,8 +196,8 @@ require_once '../includes/teacher_header.php';
             <h3>➕ Ajouter une note</h3>
 
             <?php if (empty($ungraded)): ?>
-                <p style="color:#16a34a;font-size:14px;text-align:center;padding:20px 0">
-                    ✅ Tous les étudiants ont été notés !
+            <p class="text-success text-md text-center py-md">
+                ✅ Tous les étudiants ont été notés !
                 </p>
             <?php else: ?>
 
@@ -229,7 +229,7 @@ require_once '../includes/teacher_header.php';
                     <div class="form-group">
                         <label>Mention</label>
                         <input type="text" id="mention_display"
-                               disabled style="background:#f8fafc"
+                               disabled class="bg-secondary"
                                placeholder="Entrez une note...">
                     </div>
                 </div>
@@ -248,13 +248,13 @@ require_once '../includes/teacher_header.php';
     <!-- Right: graded students table -->
     <div class="teachers-card">
         <h3>📋 Notes saisies
-            <span style="font-weight:400;font-size:13px;color:#64748b">
+            <span class="font-normal text-xs text-secondary">
                 (<?= count($graded) ?> / <?= count($graded) + count($ungraded) ?>)
             </span>
         </h3>
 
         <?php if (empty($graded)): ?>
-            <p style="color:#94a3b8;font-size:14px;text-align:center;padding:24px 0">
+            <p class="empty-state text-secondary mb-0">
                 Aucune note saisie pour le moment.
             </p>
         <?php else: ?>
@@ -271,7 +271,7 @@ require_once '../includes/teacher_header.php';
                 <?php foreach ($graded as $g): ?>
                 <tr>
                     <td>
-                        <span style="font-size:12px;color:#64748b">
+                        <span class="text-xs text-secondary">
                             <?= htmlspecialchars($g['student_number']) ?>
                         </span><br>
                         <?= htmlspecialchars($g['first_name'].' '.$g['last_name']) ?>
@@ -284,8 +284,7 @@ require_once '../includes/teacher_header.php';
                     <td><?= mention_badge($g['grade']) ?></td>
                     <td>
                         <a href="notes.php?edit=<?= $g['note_id'] ?>"
-                           class="btn btn-secondary"
-                           style="padding:5px 10px;font-size:12px">
+                           class="btn btn-secondary text-xs px-sm py-sm">
                            ✏️ Modifier
                         </a>
                     </td>
@@ -299,11 +298,11 @@ require_once '../includes/teacher_header.php';
 
 <?php
 function mention_badge($grade) {
-    if ($grade >= 16) return '<span class="badge green">Très bien</span>';
-    if ($grade >= 14) return '<span class="badge blue">Bien</span>';
-    if ($grade >= 12) return '<span class="badge purple">Assez bien</span>';
-    if ($grade >= 10) return '<span class="badge amber">Passable</span>';
-    return '<span class="badge red">Insuffisant</span>';
+    if ($grade >= 16) return '<span class="badge green mention mention-excellent">Très bien</span>';
+    if ($grade >= 14) return '<span class="badge blue mention mention-very-good">Bien</span>';
+    if ($grade >= 12) return '<span class="badge purple mention mention-good">Assez bien</span>';
+    if ($grade >= 10) return '<span class="badge amber mention mention-satisfactory">Passable</span>';
+    return '<span class="badge red mention mention-failed">Insuffisant</span>';
 }
 ?>
 

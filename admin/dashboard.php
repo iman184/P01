@@ -14,9 +14,16 @@ $total_students = $pdo->query("SELECT COUNT(*) FROM students")->fetchColumn();
 $total_teachers = $pdo->query("SELECT COUNT(*) FROM teachers")->fetchColumn();
 $total_modules  = $pdo->query("SELECT COUNT(*) FROM modules")->fetchColumn();
 
+// ── Count online students (active in last 30 minutes) ────
+$online_students = $pdo->query("
+    SELECT COUNT(*) FROM students 
+    WHERE last_activity IS NOT NULL 
+    AND last_activity > DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+")->fetchColumn();
+
 // ── Recent students ───────────────────────
 $recent_students = $pdo->query("
-    SELECT first_name, last_name, email, created_at
+    SELECT first_name, last_name, email, created_at, last_login
     FROM students
     ORDER BY created_at DESC
     LIMIT 5
@@ -53,6 +60,14 @@ $recent_students = $pdo->query("
             <h2><?= $total_modules ?></h2>
         </div>
     </div>
+
+    <div class="stat-card">
+        <div class="stat-icon green">🟢</div>
+        <div class="stat-info">
+            <p>Étudiants en ligne</p>
+            <h2><?= $online_students ?></h2>
+        </div>
+    </div>
 </div>
 
 <!-- Recent students table -->
@@ -64,7 +79,7 @@ $recent_students = $pdo->query("
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Inscrit le</th>
-                <th>Statut</th>
+                <th>Dernière connexion</th>
             </tr>
         </thead>
         <tbody>
@@ -73,7 +88,15 @@ $recent_students = $pdo->query("
                 <td><?= htmlspecialchars($s['first_name'] . ' ' . $s['last_name']) ?></td>
                 <td><?= htmlspecialchars($s['email']) ?></td>
                 <td><?= date('d/m/Y', strtotime($s['created_at'])) ?></td>
-                <td><span class="badge green">Actif</span></td>
+                <td>
+                    <?php 
+                        if ($s['last_login']) {
+                            echo date('d/m/Y H:i', strtotime($s['last_login']));
+                        } else {
+                            echo '<span style="color: #94a3b8;">Jamais</span>';
+                        }
+                    ?>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>

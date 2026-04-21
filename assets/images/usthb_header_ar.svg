@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="90" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: Arial, sans-serif; font-size: 12px; fill: #0f172a; text-anchor: end; }
+  </style>
+  <text x="190" y="15" dominant-baseline="middle">وزارة التعليم العالي والبحث العلمي</text>
+  <text x="190" y="45" dominant-baseline="middle">جامعة العلوم والتكنولوجيا هواري بومدين</text>
+  <text x="190" y="75" dominant-baseline="middle">كلية الاعلام الالي</text>
+</svg>

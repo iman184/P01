@@ -111,9 +111,9 @@ require_once '../includes/teacher_header.php';
             <h2>
                 <?php if ($average !== null): ?>
                     <?= $average ?>
-                    <small style="font-size:14px;color:#64748b">/20</small>
+                    <small class="text-md text-secondary">/20</small>
                 <?php else: ?>
-                    <span style="font-size:16px;color:#94a3b8">—</span>
+                    <span class="text-lg text-muted">—</span>
                 <?php endif; ?>
             </h2>
         </div>
@@ -125,7 +125,7 @@ require_once '../includes/teacher_header.php';
     <!-- Module card -->
     <div>
         <?php if ($module): ?>
-        <div class="card" style="margin-bottom:20px">
+        <div class="card mb-lg">
             <h3>📚 Mon module</h3>
             <div class="info-list">
                 <div class="info-row">
@@ -153,11 +153,11 @@ require_once '../includes/teacher_header.php';
                     </span>
                 </div>
             </div>
-            <div style="margin-top:16px;display:flex;gap:10px">
-                <a href="notes.php" class="btn btn-primary" style="flex:1;text-align:center">
-                    📝 Saisir les notes
+            <div class="flex gap-md mt-lg">
+                <a href="notes.php" class="btn btn-primary flex-1 text-center">
+                    🗣️ Saisir les notes
                 </a>
-                <a href="students.php" class="btn btn-secondary" style="flex:1;text-align:center">
+                <a href="students.php" class="btn btn-secondary flex-1 text-center">
                     🎓 Voir les étudiants
                 </a>
             </div>
@@ -199,7 +199,7 @@ require_once '../includes/teacher_header.php';
     <div class="card">
         <h3>📝 Dernières notes saisies</h3>
         <?php if (empty($recent_notes)): ?>
-            <p style="color:#94a3b8;font-size:14px;text-align:center;padding:24px 0">
+            <p class="empty-state text-secondary mb-0">
                 Aucune note saisie pour le moment.
             </p>
         <?php else: ?>

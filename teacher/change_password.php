@@ -20,12 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($new !== $confirm) $errors[] = "Les mots de passe ne correspondent pas.";
 
     if (empty($errors)) {
-        // Note: teachers use `password` column
-        $stmt = $pdo->prepare("SELECT password FROM teachers WHERE id = ?");
+        // Note: teachers now use `password_hash` column
+        $stmt = $pdo->prepare("SELECT password_hash FROM teachers WHERE id = ?");
         $stmt->execute([$_SESSION['user_id']]);
         $row = $stmt->fetch();
 
-        if (!$row || !password_verify($current, $row['password'])) {
+        if (!$row || !password_verify($current, $row['password_hash'])) {
             $errors[] = "Le mot de passe actuel est incorrect.";
         }
     }
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hash = password_hash($new, PASSWORD_BCRYPT);
         $stmt = $pdo->prepare("
             UPDATE teachers
-            SET password = ?, must_change_password = 0
+            SET password_hash = ?, must_change_password = 0
             WHERE id = ?
         ");
         $stmt->execute([$hash, $_SESSION['user_id']]);
@@ -62,7 +62,7 @@ require_once '../includes/teacher_header.php';
     </div>
 <?php endif; ?>
 
-<div class="card" style="max-width:480px">
+<div class="card max-w-md">
     <form method="POST" action="">
 
         <div class="form-group">

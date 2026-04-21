@@ -46,43 +46,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Changer le mot de passe</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        body { display: flex; align-items: center; justify-content: center;
-               min-height: 100vh; background: #f4f6f9; }
-        .change-box { background: #fff; padding: 36px; border-radius: 12px;
-                      width: 100%; max-width: 420px;
-                      box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .change-box h2 { margin-bottom: 8px; font-size: 20px; }
-        .change-box p.sub { color: #64748b; font-size: 14px; margin-bottom: 24px; }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
-<div class="change-box">
-    <h2>🔐 Changer votre mot de passe</h2>
-    <p class="sub">Vous devez définir un nouveau mot de passe avant de continuer.</p>
 
-    <?php if (!empty($errors)): ?>
-        <div class="alert danger">
-            <?php foreach ($errors as $e): ?>
-                <p><?= htmlspecialchars($e) ?></p>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+<div class="navbar">
+    <div class="nav-left">
+        <img src="../assets/images/USTHB.png" alt="Logo" style="height: 35px">
+    </div>
+</div>
 
-    <form method="POST" action="">
-        <div class="form-group">
-            <label>Nouveau mot de passe</label>
-            <input type="password" name="new_password" placeholder="Min. 6 caractères">
-        </div>
-        <div class="form-group">
-            <label>Confirmer le mot de passe</label>
-            <input type="password" name="confirm_password">
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%">
-            Enregistrer
-        </button>
-    </form>
+<div class="auth-wrap">
+    <div class="auth-card">
+        <h2 class="mb-md">🔐 Changer votre mot de passe</h2>
+        <p class="text-secondary mb-2xl">Vous devez définir un nouveau mot de passe avant de continuer.</p>
+
+        <?php if (!empty($errors)): ?>
+            <div class="alert danger mb-lg">
+                <?php foreach ($errors as $e): ?>
+                    <p><?= htmlspecialchars($e) ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" action="">
+            <div class="form-group">
+                <label>Nouveau mot de passe</label>
+                <input type="password" name="new_password" placeholder="Min. 6 caractères">
+            </div>
+            <div class="form-group">
+                <label>Confirmer le mot de passe</label>
+                <input type="password" name="confirm_password">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%">
+                Enregistrer
+            </button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

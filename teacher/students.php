@@ -44,13 +44,13 @@ require_once '../includes/teacher_header.php';
 
 <div class="page-header">
     <h1>🎓 Liste des Étudiants</h1>
-    <span class="badge blue" style="font-size:13px;padding:6px 14px">
+    <span class="badge blue text-xs px-md py-sm">
         Module : <?= htmlspecialchars($module['code'].' — '.$module['title']) ?>
     </span>
 </div>
 
 <!-- Quick stats -->
-<div class="stats-grid" style="margin-bottom:20px">
+<div class="stats-grid mb-lg">
     <div class="stat-card">
         <div class="stat-icon blue">🎓</div>
         <div class="stat-info">
@@ -110,7 +110,7 @@ require_once '../includes/teacher_header.php';
                         <?= number_format($s['grade'], 2) ?>
                     </strong>
                 <?php else: ?>
-                    <span style="color:#94a3b8">—</span>
+                    <span class="text-muted">—</span>
                 <?php endif; ?>
             </td>
             <td>

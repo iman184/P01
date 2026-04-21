@@ -55,7 +55,7 @@ require_once '../includes/header.php';
         <tbody>
         <?php if (empty($modules)): ?>
             <tr>
-                <td colspan="5" style="text-align:center;color:#888">
+                <td colspan="5" class="empty-state">
                     Aucun module trouvé.
                 </td>
             </tr>
@@ -69,7 +69,7 @@ require_once '../includes/header.php';
                     <?php if ($m['first_name']): ?>
                         👨‍🏫 <?= htmlspecialchars($m['first_name'] . ' ' . $m['last_name']) ?>
                     <?php else: ?>
-                        <span style="color:#999">Non assigné</span>
+                        <span class="text-secondary">(Non assigné)</span>
                     <?php endif; ?>
                 </td>
                 <td>

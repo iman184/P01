@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS teachers (
     first_name            VARCHAR(80)  NOT NULL,
     email                 VARCHAR(120) NOT NULL UNIQUE,
     subject     VARCHAR(100),
-     password              VARCHAR(255) NOT NULL,
+    password_hash         VARCHAR(255) NOT NULL,
     must_change_password  TINYINT(1)   NOT NULL DEFAULT 1,
     is_active             TINYINT(1)   NOT NULL DEFAULT 1,
     created_at            TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS students (
     email                 VARCHAR(120) NOT NULL UNIQUE,
     student_number        VARCHAR(20)  NOT NULL UNIQUE,
     birth_date            DATE,
-    password              VARCHAR(255) NOT NULL,
+    password_hash         VARCHAR(255) NOT NULL,
     must_change_password  TINYINT(1)   NOT NULL DEFAULT 1,
     is_active             TINYINT(1)   NOT NULL DEFAULT 1,
     created_at            TIMESTAMP    DEFAULT CURRENT_TIMESTAMP

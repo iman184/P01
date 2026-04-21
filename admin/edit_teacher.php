@@ -88,7 +88,7 @@ require_once '../includes/header.php';
 <?php endif; ?>
 
 <?php if ($assigned): ?>
-    <div class="alert" style="background:#eff6ff;color:#1d4ed8;margin-bottom:20px">
+    <div class="alert alert-info mb-lg">
         📚 Module assigné :
         <strong>
             <?= htmlspecialchars($assigned['code'].' — '.$assigned['title']) ?>
@@ -119,13 +119,13 @@ require_once '../includes/header.php';
         </div>
 
         <div class="form-group">
-            <label>Spécialité <span style="color:#999">(optionnel)</span></label>
+            <label>Spécialité <span class="optional">(optionnel)</span></label>
             <input type="text" name="subject"
                    value="<?= htmlspecialchars($data['subject'] ?? '') ?>">
         </div>
 
         <div class="form-group">
-            <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+            <label class="flex-center gap-md" style="cursor:pointer">
                 <input type="checkbox" name="is_active" value="1"
                        style="width:16px;height:16px"
                        <?= $data['is_active'] ? 'checked' : '' ?>>

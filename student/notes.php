@@ -99,7 +99,7 @@ require_once '../includes/header.php';
         <tbody>
         <?php if (empty($notes)): ?>
             <tr>
-                <td colspan="4" style="text-align:center;color:#888">
+                <td colspan="4" class="empty-state">
                     Aucune note disponible.
                 </td>
             </tr>
@@ -127,11 +127,11 @@ require_once '../includes/header.php';
 <?php
 // ── Helper: grade → mention ───────────────
 function mention($grade) {
-    if ($grade >= 16) return '<span class="badge green">Très bien</span>';
-    if ($grade >= 14) return '<span class="badge blue">Bien</span>';
-    if ($grade >= 12) return '<span class="badge purple">Assez bien</span>';
-    if ($grade >= 10) return '<span class="badge amber">Passable</span>';
-    return '<span class="badge red">Insuffisant</span>';
+    if ($grade >= 16) return '<span class="badge green mention mention-excellent">Très bien</span>';
+    if ($grade >= 14) return '<span class="badge blue mention mention-very-good">Bien</span>';
+    if ($grade >= 12) return '<span class="badge purple mention mention-good">Assez bien</span>';
+    if ($grade >= 10) return '<span class="badge amber mention mention-satisfactory">Passable</span>';
+    return '<span class="badge red mention mention-failed">Insuffisant</span>';
 }
 ?>
 

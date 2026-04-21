@@ -1,0 +1,242 @@
+/* ============================
+   MAIN CSS STYLESHEET
+   Organized & Clean Architecture
+   ============================ */
+
+/* Import all CSS modules in order */
+@import url('./variables.css');
+@import url('./global.css');
+@import url('./components.css');
+@import url('./pages.css');
+
+/* ============================
+   CSS ARCHITECTURE NOTES
+   ============================
+   
+   This CSS is organized into modular files:
+   
+   1. variables.css
+      - CSS custom properties (colors, spacing, shadows, etc)
+      - Design tokens and theme configuration
+      - Use these variables throughout all other files
+   
+   2. global.css
+      - Reset and normalize styles
+      - Base element styling (html, body, headings, links)
+      - Navbar component (used on all pages)
+      - Shared responsive rules
+   
+   3. components.css
+      - Reusable UI components
+      - Buttons, badges, alerts, forms, cards
+      - Stat cards, progress bars, info lists
+      - Component-level responsive styles
+   
+   4. pages.css
+      - Page-specific styles
+      - Homepage (hero, features, roles, about, footer)
+      - Login/Auth pages (auth-wrap, auth-card, form styles)
+      - Dashboard (sidebar, main-content, navigation)
+      - Full responsive breakpoints for all pages
+   
+   ============================
+   COLOR SYSTEM
+   ============================
+   
+   Primary:    --color-primary (#0A2E8A)
+   Text:       --color-text (#1e293b)
+   Background: --color-bg-white (#fff)
+   Border:     --color-border-light (#e2e8f0)
+   
+   Semantic Colors:
+   - Green:    --color-green (#10b981)
+   - Amber:    --color-amber (#f59e0b)
+   - Red:      --color-red (#ef4444)
+   
+   Light Variants Available:
+   - --color-green-light
+   - --color-amber-light
+   - --color-red-light
+   
+   ============================
+   SPACING SYSTEM
+   ============================
+   
+   xs:  4px   (--spacing-xs)
+   sm:  8px   (--spacing-sm)
+   md:  12px  (--spacing-md)
+   lg:  16px  (--spacing-lg)
+   xl:  20px  (--spacing-xl)
+   2xl: 24px  (--spacing-2xl)
+   3xl: 32px  (--spacing-3xl)
+   
+   ============================
+   RESPONSIVE BREAKPOINTS
+   ============================
+   
+   1024px - Desktop to Tablet
+   768px  - Tablet to Mobile
+   480px  - Mobile optimization
+   
+   ============================
+   USAGE GUIDELINES
+   ============================
+   
+   ✓ Use CSS variables for all colors, spacing, shadows
+   ✓ Use semantic class names (.role-card, .auth-wrap, etc)
+   ✓ Keep component styles in components.css
+   ✓ Keep page layouts in pages.css
+   ✓ Use utility classes for common patterns
+   ✓ Ensure mobile-first responsive design
+   ✓ Maintain consistent spacing and alignment
+   ✓ Use transitions for interactive elements
+   
+   ============================ */
+      /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer {
+      background: #08225a;
+      color: #dce8fa;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+ 
+    footer::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, #4a9eff 0%, #a8d0ff 45%, #4a9eff 75%, transparent 100%);
+    }
+ 
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 32px 36px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px 64px;
+      align-items: start;
+    }
+ 
+    .block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #7ab8ff;
+      margin-bottom: 20px;
+    }
+ 
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px 40px;
+    }
+ 
+    .member {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding-left: 12px;
+      border-left: 1px solid #122f6e;
+      transition: border-color .3s;
+    }
+    .member:hover { border-color: #4a9eff; }
+ 
+    .member-name {
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: #eaf2ff;
+      line-height: 1.3;
+    }
+ 
+    .member-id {
+      font-family: 'DM Mono', monospace;
+      font-size: .72rem;
+      color: #4a6fa8;
+      letter-spacing: .04em;
+    }
+ 
+    .group-block {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+    }
+ 
+    .group-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #051840;
+      border: 1px solid #1a3a7a;
+      border-radius: 4px;
+      padding: 10px 18px;
+    }
+    .badge-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #4a9eff;
+      line-height: 1;
+    }
+    .badge-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #4a6fa8;
+      line-height: 1.5;
+    }
+ 
+    .supervisor {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .supervisor-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: #4a6fa8;
+    }
+    .supervisor-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #dce8fa;
+    }
+ 
+    .footer-bottom {
+      border-top: 1px solid #122f6e;
+      padding: 14px 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .footer-bottom span {
+      font-family: 'DM Mono', monospace;
+      font-size: .65rem;
+      color: #2a4a80;
+      letter-spacing: .1em;
+    }
+ 
+    .corner-mark {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 120px; height: 120px;
+      opacity: .07;
+      pointer-events: none;
+    }
+    .corner-mark svg { width: 100%; height: 100%; }
+ 
+    @media (max-width: 680px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .members-grid { grid-template-columns: 1fr; }
+      .group-block { text-align: left; align-items: flex-start; }
+    }

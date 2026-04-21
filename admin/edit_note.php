@@ -57,8 +57,8 @@ require_once '../includes/header.php';
 <?php endif; ?>
 
 <!-- Read-only info block -->
-<div class="card" style="margin-bottom:20px;background:#f8fafc">
-    <p style="margin:0;font-size:14px;color:#64748b">
+<div class="card bg-secondary mb-lg">
+    <p class="m-0 text-sm text-secondary">
         Étudiant : <strong><?= htmlspecialchars($note['student_number'] . ' — ' . $note['first_name'] . ' ' . $note['last_name']) ?></strong>
         &nbsp;|&nbsp;
         Module : <strong><?= htmlspecialchars($note['code'] . ' — ' . $note['module_name']) ?></strong>
@@ -80,7 +80,7 @@ require_once '../includes/header.php';
             <div class="form-group">
                 <label>Mention</label>
                 <input type="text" id="mention_display" disabled
-                       style="background:#f8fafc;color:#64748b">
+                       class="bg-secondary text-secondary">
             </div>
         </div>
 

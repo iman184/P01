@@ -103,10 +103,10 @@ require_once '../includes/header.php';
         </div>
 
         <!-- Coefficient shown automatically when module is selected -->
-        <div class="form-group" id="coef_display" style="display:none">
+        <div class="form-group hidden" id="coef_display">
             <label>Coefficient</label>
             <input type="text" id="coef_value" disabled
-                   style="background:#f8fafc;color:#64748b">
+                   class="bg-secondary text-secondary">
         </div>
 
         <div class="form-row">
@@ -120,7 +120,7 @@ require_once '../includes/header.php';
             <div class="form-group">
                 <label>Mention (calculée)</label>
                 <input type="text" id="mention_display" disabled
-                       style="background:#f8fafc;color:#64748b"
+                       class="bg-secondary text-secondary"
                        placeholder="Entrez une note...">
             </div>
         </div>

@@ -70,7 +70,7 @@ require_once '../includes/header.php';
         <tbody>
         <?php if (empty($teachers)): ?>
             <tr>
-                <td colspan="9" style="text-align:center;color:#888">
+                <td colspan="9" class="empty-state">
                     Aucun enseignant trouvé.
                 </td>
             </tr>
