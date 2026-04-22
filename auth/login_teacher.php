@@ -1,3 +1,10 @@
+<!--
+groupe 01
+zighed imen 232335330411
+Dekrah lakehal 242431577219
+Bearcia Issam eddine 232331412506
+Ramoul Meriem 242431422801
+-->
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -65,11 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Login – School System</title>
+    <title>Connexion Enseignant – Système de Gestion</title>
     <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
@@ -78,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    <div class="sidebar-brand"><img src="../assets/images/USTHB.jpg" alt="Logo" class="sidebar-img">
                 EduSync</div>
     <div class="nav-links">
-        <a href="../index.php" class="nav-link">Home</a>
-        <a href="login.php" class="nav-link">Back</a>
+        <a href="../index.php" class="nav-link">Accueil</a>
+        <a href="login.php" class="nav-link">Retour</a>
     </div>
 </nav>
 
@@ -87,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="auth-card">
         <div class="auth-header">
             <div style="font-size:28px; margin-bottom:10px;">🎓</div>
-            <div class="auth-title">Teacher Login</div>
-            <div class="auth-sub">Enter your email and password to access your account</div>
+            <div class="auth-title">Connexion Enseignant</div>
+            <div class="auth-sub">Entrez votre email et mot de passe pour accéder à votre compte</div>
         </div>
 
         <?php if ($error): ?>
@@ -99,25 +106,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form method="POST">
             <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="email">Adresse Email</label>
                 <input type="email" id="email" name="email" required autofocus>
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <button type="submit" class="btn-full">Login</button>
+            <button type="submit" class="btn-full">Se Connecter</button>
         </form>
 
-        <div style="margin-top:20px; padding:12px; background:var(--color-bg-secondary); border-radius:var(--radius-md); font-size:11px; color:var(--color-text-secondary); line-height:1.8;">
-            <strong style="display:block; margin-bottom:4px;">Need Help?</strong>
-            Contact the administrator if you forgot your credentials or need account support.
+          <div style="margin-top:20px; padding:12px; background:var(--color-bg-secondary); border-radius:var(--radius-md); font-size:11px; color:var(--color-text-secondary); line-height:1.8;">
+            <strong style="display:block; margin-bottom:4px;">Besoin d’aide ?</strong>
+           Contactez l’administrateur du système si vous avez oublié vos identifiants.
         </div>
 
         <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--color-border-light); text-align:center;">
-            <a href="login.php" style="font-size:13px; color:var(--color-text-secondary); text-decoration:none;">← Back to Role Selection</a>
+            <a href="login.php" style="font-size:13px; color:var(--color-text-secondary); text-decoration:none;">← Retour à la sélection du rôle</a>
         </div>
     </div>
 </div>

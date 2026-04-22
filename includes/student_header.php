@@ -1,3 +1,10 @@
+<!--
+groupe 01
+zighed imen 232335330411
+Dekrah lakehal 242431577219
+Bearcia Issam eddine 232331412506
+Ramoul Meriem 242431422801
+-->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -45,7 +52,7 @@ require_once __DIR__ . '/activity_tracker.php';
                 <span class="sidebar-user-name">
                     <?= htmlspecialchars($_SESSION['user_name']) ?>
                 </span>
-                <span class="sidebar-user-role">Student</span>
+                <span class="sidebar-user-role">Étudiant</span>
             </div>
         </div>
 

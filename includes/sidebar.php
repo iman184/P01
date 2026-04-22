@@ -1,3 +1,10 @@
+<!--
+groupe 01
+zighed imen 232335330411
+Dekrah lakehal 242431577219
+Bearcia Issam eddine 232331412506
+Ramoul Meriem 242431422801
+-->
 <?php
 $current = basename($_SERVER['PHP_SELF']);
 ?>
@@ -13,12 +20,12 @@ $current = basename($_SERVER['PHP_SELF']);
             <span class="sidebar-user-name">
                 <?= htmlspecialchars($_SESSION['user_name']) ?>
             </span>
-            <span class="sidebar-user-role">Administrator</span>
+            <span class="sidebar-user-role">Administrateur</span>
         </div>
     </div>
     
     <nav>
-        <a href="dashboard.php"  class="<?= $current === 'dashboard.php'  ? 'active' : '' ?>">📊 Dashboard</a>
+        <a href="dashboard.php"  class="<?= $current === 'dashboard.php'  ? 'active' : '' ?>">📊 Tableau de bord</a>
         <a href="students.php"   class="<?= $current === 'students.php'   ? 'active' : '' ?>">🎓 Étudiants</a>
         <a href="teachers.php"   class="<?= $current === 'teachers.php'   ? 'active' : '' ?>">👨‍🏫 Enseignants</a>
         <a href="modules.php"    class="<?= $current === 'modules.php'    ? 'active' : '' ?>">📚 Modules</a>

@@ -1,4 +1,11 @@
 <?php
+/*
+groupe 01
+zighed imen 232335330411
+Dekrah lakehal 242431577219
+Bearcia Issam eddine 232331412506
+Ramoul Meriem 242431422801
+*/
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -24,12 +31,12 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-    <title>Welcome – School Management System</title>
+    <title>Bienvenue – Système de Gestion Scolaire</title>
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
@@ -40,8 +47,8 @@ if (isset($_SESSION['user_id'])) {
                 EduSync</div>
     
     <div class="nav-links">
-        <a href="index.php" class="nav-link active">Home</a>
-        <a href="auth/login.php" class="nav-link">Login</a>
+        <a href="index.php" class="nav-link active">Accueil</a>
+        <a href="auth/login.php" class="nav-link">Connexion</a>
     </div>
 </nav>
 
@@ -72,8 +79,8 @@ if (isset($_SESSION['user_id'])) {
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
         </div>
-        <div class="feat-title">Student Management</div>
-        <div class="feat-desc">Complete student record management with enrollment tracking and progress monitoring.</div>
+        <div class="feat-title">Gestion des Étudiants</div>
+        <div class="feat-desc">Gestion complète des dossiers étudiants avec suivi des inscriptions et suivi de la progression.</div>
     </div>
 
     <div class="feat-card">
@@ -83,8 +90,8 @@ if (isset($_SESSION['user_id'])) {
                 <circle cx="12" cy="12" r="10"></circle>
             </svg>
         </div>
-        <div class="feat-title">Grade Management</div>
-        <div class="feat-desc">Easy grade entry by teachers with automatic weighted calculations and transcript generation.</div>
+        <div class="feat-title">Gestion des Notes</div>
+        <div class="feat-desc">Saisie facile des notes par les enseignants avec calculs pondérés automatiques et génération de relevés.</div>
     </div>
 
     <div class="feat-card">
@@ -94,47 +101,47 @@ if (isset($_SESSION['user_id'])) {
                 <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
             </svg>
         </div>
-        <div class="feat-title">Statistics & Reports</div>
-        <div class="feat-desc">Comprehensive dashboards and downloadable transcripts for complete academic insights.</div>
+        <div class="feat-title">Statistiques et Rapports</div>
+        <div class="feat-desc">Tableaux de bord complets et relevés téléchargeables pour une vue d'ensemble académique complète.</div>
     </div>
 </section>
 
 <!-- ── Roles ────────────────────────────────────────────────– -->
 <section class="roles-section">
-    <div class="section-label">Available User Roles</div>
+    <div class="section-label">Rôles Utilisateur Disponibles</div>
     <div class="roles-grid">
         <a href="auth/login_admin.php" class="role-card">
             <div class="role-dot blue"></div>
-            <div class="role-name">Administrator</div>
-            <div class="role-desc">Complete system management including students, teachers, modules and grades.</div>
+            <div class="role-name">Administrateur</div>
+            <div class="role-desc">Gestion complète du système incluant les étudiants, enseignants, modules et notes.</div>
         </a>
         <a href="auth/login_teacher.php" class="role-card">
             <div class="role-dot green"></div>
-            <div class="role-name">Teacher</div>
-            <div class="role-desc">Manage your modules, enter grades, and track student performance.</div>
+            <div class="role-name">Enseignant</div>
+            <div class="role-desc">Gérez vos modules, saisissez les notes et suivez les performances des étudiants.</div>
         </a>
         <a href="auth/login_student.php" class="role-card">
             <div class="role-dot amber"></div>
-            <div class="role-name">Student</div>
-            <div class="role-desc">View your grades, transcripts and academic performance.</div>
+            <div class="role-name">Étudiant</div>
+            <div class="role-desc">Consultez vos notes, relevés et performance académique.</div>
         </a>
     </div>
 </section>
 
 <!-- ── About ──────────────────────────────────────────────– -->
 <section class="about-section">
-    <div class="about-title">About This Platform</div>
+    <div class="about-title">À Propos de Cette Plateforme</div>
     <div class="about-text">
-        This comprehensive academic management platform provides an efficient system for student tracking, grade entry, module management, and academic record generation. Designed for educational institutions to streamline their academic operations.
+        Cette plateforme complète de gestion académique offre un système efficace pour le suivi des étudiants, la saisie des notes, la gestion des modules et la génération de dossiers académiques. Conçue pour les établissements d'enseignement pour rationaliser leurs opérations académiques.
     </div>
     <div class="stats-bar">
         <div>
             <div class="stat-n">100+</div>
-            <div class="stat-l">Students</div>
+            <div class="stat-l">Étudiants</div>
         </div>
         <div>
             <div class="stat-n">6+</div>
-            <div class="stat-l">Teachers</div>
+            <div class="stat-l">Enseignants</div>
         </div>
         <div>
             <div class="stat-n">6+</div>
