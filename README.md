@@ -62,12 +62,13 @@ Important:
 
 You can login with either **Email** or **Student Number**
 
+
+
 | Name | Email | Student Number | Password |
 |------|-------|-----------------|----------|
-| Imen Zighed | zighedimen921@gmail.com | 232335330411 | zighedimen123 |
-| Dekrah Lakhal | dekrah.lakhal@gmail.com | 242431577219 | lakhaldekrah123 |
-| Meriem Ramoul | meriem.ramoul@gmail.com | 242431422801 | ramoulmeriem123 |
-| Issam Bearcia | issam.bearcia@gmail.com | 2323314125006 | bearciaissam123 |
+| Imen Zighed | zighedimen921@gmail.com | 232335330411 | 232335330411 |
+| Dekrah Lakhal | dekrah.lakhal@gmail.com | 242431577219 | 242431577219 |
+| Meriem Ramoul | meriem.ramoul@gmail.com | 242431422801 | 242431422801 |
 
 ## 🌐 Main Login Pages
 
