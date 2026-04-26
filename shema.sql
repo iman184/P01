@@ -133,13 +133,13 @@ ON DUPLICATE KEY UPDATE
         src.teacher_id
     FROM (
         SELECT 'BDD' AS code, 'Base de donnees' AS title, 3 AS coefficient,
-            (SELECT id FROM teachers WHERE email = 'sofiane.benkacem@edusync.local' LIMIT 1) AS teacher_id
+            (SELECT id FROM teachers WHERE email = 'abdellahoumhamza89@gmail.com' LIMIT 1) AS teacher_id
         UNION ALL
         SELECT 'ARCHI', 'Architecture dordinateur', 3,
-            (SELECT id FROM teachers WHERE email = 'nadia.mansouri@edusync.local' LIMIT 1)
+            (SELECT id FROM teachers WHERE email = 'labde79@gmail.com' LIMIT 1)
         UNION ALL
         SELECT 'THG', 'Theorie des graphes', 2,
-            (SELECT id FROM teachers WHERE email = 'yacine.merabet@edusync.local' LIMIT 1)
+            (SELECT id FROM teachers WHERE email = 'amina.gheffar@gmail.com' LIMIT 1)
         UNION ALL
         SELECT 'GL', 'Genie logiciel', 3,
             (SELECT id FROM teachers WHERE email = 'samira.khellaf@edusync.local' LIMIT 1)

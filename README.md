@@ -54,6 +54,8 @@ Important:
 | Amina Gheffar | amina.gheffar@gmail.com | gheffaramina123 |
 | Hamza Abdellahoum | abdellahoumhamza89@gmail.com | abdellahoumhamza123 |
 | Labde Laachemi | labde79@gmail.com | laachemilabde123 |
+| Samira Khellaf | samira.khellaf@edusync.local | khellaf123 |
+| Karim Bouzid | karim.bouzid@edusync.local | bouzid123 |
 
 ### Student Login
 **URL:** `http://localhost/P01imen/auth/login_student.php`
@@ -161,26 +163,13 @@ You can login with either **Email** or **Student Number**
 
 ## 📥 Import Your Real Class CSV
 
-Your `shema.sql` now includes the full real class list from `L2_ISIL_C_students.csv`.
-So for your teacher, importing `shema.sql` is enough to get the students.
+Everything is already included in `shema.sql`:
+- full class students
+- teachers
+- modules with teacher assignment
+- hashed passwords
 
-Optional refresh/update only (if you change the CSV later):
-
-- Browser: `http://localhost/P01imen/import_class_students.php`
-- CLI: `php import_class_students.php`
-
-Expected CSV header:
-
-`FirstName,LastName,Email,StudentNumber,Password`
-
-Optional column also supported:
-
-`BirthDate` (format `YYYY-MM-DD`)
-
-Notes:
-- Import is idempotent: existing rows are updated, not duplicated.
-- Passwords are stored as secure bcrypt hashes.
-- Old demo students like `student001@class.local` are removed automatically before import.
+For delivery and teacher evaluation, import `shema.sql` only.
 
 ### Test 1: Admin Login
 1. Go to `http://localhost/P01imen/auth/login_admin.php`
@@ -241,6 +230,10 @@ Notes:
 5. **Session Storage**: Sessions use PHP default (file-based)
 
 ## 🆘 Troubleshooting
+
+### "Teacher sees no students"
+- Cause: the logged-in teacher has no module assigned.
+- Fix: re-import `shema.sql` (module assignment is already included).
 
 ### "Database connection failed"
 - Check `/config/db.php` configuration
