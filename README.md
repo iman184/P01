@@ -150,7 +150,10 @@ You can login with either **Email** or **Student Number**
 
 ## 📥 Import Your Real Class CSV
 
-If you placed your class file in the project root as `L2_ISIL_C_students.csv`, run:
+Your `shema.sql` now includes the full real class list from `L2_ISIL_C_students.csv`.
+So for your teacher, importing `shema.sql` is enough to get the students.
+
+Optional refresh/update only (if you change the CSV later):
 
 - Browser: `http://localhost/P01imen/import_class_students.php`
 - CLI: `php import_class_students.php`
