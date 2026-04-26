@@ -7,14 +7,15 @@
   ```
   mysql -u root < shema.sql
   ```
-  This will create the `school_system` database with all required tables.
+   This will create the `university_system` database with all required tables.
 
 ### 2. Create Test Users
-- Open `/create_user.php` in your browser to populate the database with test users:
+- Your `shema.sql` already inserts the class admin/teachers/students automatically.
+- Optional: open `/create_user.php` in your browser if you want to refresh/reset these users:
   ```
   http://localhost/P01imen/create_user.php
   ```
-  This will create:
+   This will create/update:
   - 1 Admin account
   - 3 Teacher accounts
   - 4 Student accounts
@@ -23,7 +24,7 @@
 - The database configuration is in `/config/db.php`
 - Default credentials: 
   - Host: `localhost`
-  - Database: `school_system`
+   - Database: `university_system`
   - User: `root`
   - Password: (empty)
 
@@ -146,6 +147,26 @@ You can login with either **Email** or **Student Number**
 - Inactive accounts cannot login
 
 ## 🚀 Testing Workflow
+
+## 📥 Import Your Real Class CSV
+
+If you placed your class file in the project root as `L2_ISIL_C_students.csv`, run:
+
+- Browser: `http://localhost/P01imen/import_class_students.php`
+- CLI: `php import_class_students.php`
+
+Expected CSV header:
+
+`FirstName,LastName,Email,StudentNumber,Password`
+
+Optional column also supported:
+
+`BirthDate` (format `YYYY-MM-DD`)
+
+Notes:
+- Import is idempotent: existing rows are updated, not duplicated.
+- Passwords are stored as secure bcrypt hashes.
+- Old demo students like `student001@class.local` are removed automatically before import.
 
 ### Test 1: Admin Login
 1. Go to `http://localhost/P01imen/auth/login_admin.php`

@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS school_system
+CREATE DATABASE IF NOT EXISTS university_system
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
-USE school_system;
+USE university_system;
 
 
 -- -----------------------------------------------
@@ -40,10 +40,13 @@ CREATE TABLE IF NOT EXISTS students (
     last_name             VARCHAR(80)  NOT NULL,
     first_name            VARCHAR(80)  NOT NULL,
     email                 VARCHAR(120) NOT NULL UNIQUE,
+    profile_image         VARCHAR(255) DEFAULT NULL,
     student_number        VARCHAR(20)  NOT NULL UNIQUE,
     birth_date            DATE,
     password_hash         VARCHAR(255) NOT NULL,
     must_change_password  TINYINT(1)   NOT NULL DEFAULT 1,
+    last_login            DATETIME DEFAULT NULL,
+    last_activity         DATETIME DEFAULT NULL,
     is_active             TINYINT(1)   NOT NULL DEFAULT 1,
     created_at            TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
 );
@@ -83,3 +86,41 @@ CREATE TABLE IF NOT EXISTS admin (
     password_hash VARCHAR(255) NOT NULL,
     role          VARCHAR(50)  DEFAULT 'admin'
 );
+
+-- -----------------------------------------------
+-- SEED DATA (kept in repository for portability)
+-- -----------------------------------------------
+
+INSERT INTO admin (username, password_hash, role)
+VALUES ('admin', 'admin123', 'admin')
+ON DUPLICATE KEY UPDATE
+    password_hash = VALUES(password_hash),
+    role = VALUES(role);
+
+INSERT INTO teachers (first_name, last_name, email, subject, password_hash, must_change_password, is_active)
+VALUES
+    ('Amina', 'Gheffar', 'amina.gheffar@gmail.com', 'Mathematiques', 'gheffaramina123', 0, 1),
+    ('Hamza', 'Abdellahoum', 'abdellahoumhamza89@gmail.com', 'Informatique', 'abdellahoumhamza123', 0, 1),
+    ('Labde', 'Laachemi', 'labde79@gmail.com', 'Physique', 'laachemilabde123', 0, 1)
+ON DUPLICATE KEY UPDATE
+    first_name = VALUES(first_name),
+    last_name = VALUES(last_name),
+    subject = VALUES(subject),
+    password_hash = VALUES(password_hash),
+    must_change_password = VALUES(must_change_password),
+    is_active = VALUES(is_active);
+
+INSERT INTO students (first_name, last_name, email, student_number, birth_date, password_hash, must_change_password, is_active)
+VALUES
+    ('Imen', 'Zighed', 'zighedimen921@gmail.com', '232335330411', '2002-01-15', 'zighedimen123', 0, 1),
+    ('Dekrah', 'Lakhal', 'dekrah.lakhal@gmail.com', '242431577219', '2002-03-18', 'lakhaldekrah123', 0, 1),
+    ('Meriem', 'Ramoul', 'meriem.ramoul@gmail.com', '242431422801', '2002-06-22', 'ramoulmeriem123', 0, 1),
+    ('Issam', 'Bearcia', 'issam.bearcia@gmail.com', '2323314125006', '2001-11-09', 'bearciaissam123', 0, 1)
+ON DUPLICATE KEY UPDATE
+    first_name = VALUES(first_name),
+    last_name = VALUES(last_name),
+    student_number = VALUES(student_number),
+    birth_date = VALUES(birth_date),
+    password_hash = VALUES(password_hash),
+    must_change_password = VALUES(must_change_password),
+    is_active = VALUES(is_active);
