@@ -2,6 +2,20 @@
 
 ## 🔧 Initial Setup
 
+## 📦 Teacher ZIP Setup (Recommended)
+
+If you send this project as a `.zip`, your teacher must do these exact steps:
+
+1. Extract the ZIP into `htdocs` (example: `C:/xampp/htdocs/P01imen`).
+2. Start Apache and MySQL in XAMPP.
+3. Open phpMyAdmin and import `shema.sql`.
+4. Open `http://localhost/P01imen/`.
+
+Important:
+- The data (admin, teachers, modules, full student class list) is included in `shema.sql`.
+- Passwords are already stored as bcrypt hashes in the SQL seed.
+- No extra script is required after importing `shema.sql`.
+
 ### 1. Database Setup
 - Run the SQL schema file to create the database:
   ```
@@ -10,15 +24,12 @@
    This will create the `university_system` database with all required tables.
 
 ### 2. Create Test Users
-- Your `shema.sql` already inserts the class admin/teachers/students automatically.
-- Optional: open `/create_user.php` in your browser if you want to refresh/reset these users:
+- Your `shema.sql` already inserts admin, teachers, modules, and the full class students automatically.
+- Optional only: open `/create_user.php` if you want to overwrite/reset only the small demo accounts:
   ```
   http://localhost/P01imen/create_user.php
   ```
-   This will create/update:
-  - 1 Admin account
-  - 3 Teacher accounts
-  - 4 Student accounts
+   This script is not needed for teacher evaluation setup.
 
 ### 3. Database Configuration
 - The database configuration is in `/config/db.php`
@@ -224,7 +235,7 @@ Notes:
 ## ⚠️ Important Notes
 
 1. **Database Must Be Created First**: Run the schema file before testing
-2. **Test Users Must Be Created**: Visit `/create_user.php` to populate test data
+2. **Teacher Setup Uses Only shema.sql**: Import `shema.sql` to get all required data
 3. **Password Hashing**: All new passwords must be hashed before insertion
 4. **Column Names**: Ensure all tables use `password_hash` consistently
 5. **Session Storage**: Sessions use PHP default (file-based)
