@@ -111,7 +111,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn-full">Se Connecter</button>
         </form>
 
-          <div style="margin-top:20px; padding:12px; background:var(--color-bg-secondary); border-radius:var(--radius-md); font-size:11px; color:var(--color-text-secondary); line-height:1.8;">
+                    <div style="margin-top:20px; padding:14px; background:#fffbeb; border:1px solid #fcd34d; border-radius:var(--radius-md); font-size:12px; color:#92400e; line-height:2;">
+            <strong style="display:block; margin-bottom:6px;">🧪 Compte de test</strong>
+            <span style="display:inline-block; background:#fff; border:1px solid #fcd34d; border-radius:4px; padding:2px 8px; margin-bottom:2px; font-family:monospace;">Email : amina.gheffar@gmail.com</span><br>
+            <span style="display:inline-block; background:#fff; border:1px solid #fcd34d; border-radius:4px; padding:2px 8px; font-family:monospace;">Mot de passe : gheffaramina123</span>
+        </div>
+
+<div style="margin-top:20px; padding:12px; background:var(--color-bg-secondary); border-radius:var(--radius-md); font-size:11px; color:var(--color-text-secondary); line-height:1.8;">
             <strong style="display:block; margin-bottom:4px;">Besoin d’aide ?</strong>
            Contactez l’administrateur du système si vous avez oublié vos identifiants.
         </div>

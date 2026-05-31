@@ -59,6 +59,23 @@ require_once '../includes/student_header.php';
     <?php endif; ?>
 </div>
 
+<?php if (isset($_GET['error']) && $_GET['error'] === 'composer'): ?>
+<div style="margin: 16px 0; padding: 18px 20px; background: #fff7ed; border: 1.5px solid #f97316; border-radius: 10px; color: #7c2d12; font-size: 13px; line-height: 1.9;">
+    <div style="font-size: 15px; font-weight: bold; margin-bottom: 8px;">&#9888;&#65039; Impossible de generer le PDF &mdash; Bibliotheques manquantes</div>
+    <p style="margin: 0 0 10px;">Le module de generation PDF (<strong>Dompdf</strong>) n'est pas installe. Vous devez executer <strong>Composer</strong> une seule fois.</p>
+    <strong>Etapes :</strong>
+    <ol style="margin: 8px 0 10px 20px; padding: 0;">
+        <li>Telechargez <strong>Composer</strong> sur : <code>https://getcomposer.org/download/</code> et installez-le.</li>
+        <li>Ouvrez <strong>CMD</strong> et executez :</li>
+    </ol>
+    <div style="background: #1e1e1e; color: #d4d4d4; font-family: monospace; padding: 10px 14px; border-radius: 6px; font-size: 12px; margin-bottom: 10px;">
+        cd C:/xampp/htdocs/P01imen<br>
+        composer install
+    </div>
+    <p style="margin: 0;">Attendez la fin de l'installation, puis <strong>rechargez cette page</strong> et reessayez. &#10003;</p>
+</div>
+<?php endif; ?>
+
 <?php if (empty($notes)): ?>
     <div class="alert amber">
         ⚠️ Aucune note disponible pour le moment.

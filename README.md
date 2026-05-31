@@ -9,7 +9,52 @@ If you send this project as a `.zip`, your teacher must do these exact steps:
 1. Extract the ZIP into `htdocs` (example: `C:/xampp/htdocs/P01imen`).
 2. Start Apache and MySQL in XAMPP.
 3. Open phpMyAdmin and import `shema.sql`.
-4. Open `http://localhost/P01imen/`.
+4. **Install PHP dependencies** (see section below ⚠️).
+5. Open `http://localhost/P01imen/`.
+
+---
+
+## ⚠️ Required: Install PHP Libraries (Composer)
+
+If you see this error when opening the project:
+
+```
+Warning: require(...thecodingmachine/safe/lib/special_cases.php): Failed to open stream
+Fatal error: Uncaught Error: Failed opening required ...
+```
+
+It means the PHP libraries are missing. You must run **Composer** once to install them.
+
+### Step 1 — Install Composer (only once on your PC)
+
+1. Go to: **https://getcomposer.org/download/**
+2. Download **Composer-Setup.exe**
+3. Run the installer → click Next until Finish
+4. Restart your CMD / Terminal
+
+### Step 2 — Install the project libraries
+
+Open **CMD** (Command Prompt) and run:
+
+```bash
+cd C:\xampp\htdocs\P01imen
+composer install
+```
+
+> ⏳ Wait until it finishes (it will download the missing libraries into the `vendor/` folder).
+
+### Step 3 — Refresh the page
+
+Go back to your browser and reload:
+```
+http://localhost/P01imen/
+```
+
+The error should be gone. ✅
+
+> 💡 **You only need to do this once.** After `composer install`, the libraries stay in the `vendor/` folder permanently.
+
+---
 
 Important:
 - The data (admin, teachers, modules, full student class list) is included in `shema.sql`.
@@ -62,12 +107,13 @@ Important:
 
 You can login with either **Email** or **Student Number**
 
+
+
 | Name | Email | Student Number | Password |
 |------|-------|-----------------|----------|
-| Imen Zighed | zighedimen921@gmail.com | 232335330411 | zighedimen123 |
-| Dekrah Lakhal | dekrah.lakhal@gmail.com | 242431577219 | lakhaldekrah123 |
-| Meriem Ramoul | meriem.ramoul@gmail.com | 242431422801 | ramoulmeriem123 |
-| Issam Bearcia | issam.bearcia@gmail.com | 2323314125006 | bearciaissam123 |
+| Imen Zighed | zighedimen921@gmail.com | 232335330411 | 232335330411 |
+| Dekrah Lakhal | dekrah.lakhal@gmail.com | 242431577219 | 242431577219 |
+| Meriem Ramoul | meriem.ramoul@gmail.com | 242431422801 | 242431422801 |
 
 ## 🌐 Main Login Pages
 

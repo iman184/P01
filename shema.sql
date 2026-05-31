@@ -363,3 +363,128 @@ ON DUPLICATE KEY UPDATE
     must_change_password = VALUES(must_change_password),
     is_active = VALUES(is_active);
 
+
+-- -----------------------------------------------
+-- ENROLLMENTS: Imen Zighed (232335330411) in all 5 modules
+-- -----------------------------------------------
+INSERT INTO enrollments (student_id, module_id, academic_year)
+SELECT s.id, m.id, '2025/2026'
+FROM students s, modules m
+WHERE s.student_number = '232335330411'
+ON DUPLICATE KEY UPDATE academic_year = VALUES(academic_year);
+
+-- -----------------------------------------------
+-- NOTES: Imen Zighed - all 5 modules
+-- -----------------------------------------------
+INSERT INTO notes (student_id, module_id, grade, academic_year)
+SELECT s.id, m.id,
+    CASE m.code
+        WHEN 'THG'   THEN 16.50   -- Theorie des graphes (Amina)
+        WHEN 'BDD'   THEN 14.00   -- Base de donnees
+        WHEN 'ARCHI' THEN 12.75   -- Architecture
+        WHEN 'GL'    THEN 15.25   -- Genie logiciel
+        WHEN 'PWEB'  THEN 17.00   -- Programmation web
+    END AS grade,
+    '2025/2026'
+FROM students s, modules m
+WHERE s.student_number = '232335330411'
+  AND m.code IN ('THG','BDD','ARCHI','GL','PWEB')
+ON DUPLICATE KEY UPDATE grade = VALUES(grade);
+
+-- -----------------------------------------------
+-- ENROLLMENTS: all students in THG module (Amina Gheffar)
+-- (enroll a representative sample so Amina can enter grades)
+-- -----------------------------------------------
+INSERT INTO enrollments (student_id, module_id, academic_year)
+SELECT s.id, m.id, '2025/2026'
+FROM students s, modules m
+WHERE m.code = 'THG'
+  AND s.student_number IN (
+    '232335330411','212431859912','232431546203','242431599204',
+    '222231609707','242431676416','232331500107','242431370909',
+    '232331413601','242431368913','222231413217','242431438719',
+    '242431577510','222231581410','242431461716','232333374911',
+    '242431453208','222231438707','232332170007','232331499219',
+    '232333087110','232331738702','242431730502','222233370909',
+    '242431620609','232331388007','232331412506','232331740006',
+    '242431597817','232331667419','232331441703','232331715109',
+    '242431715620','222231345706','242431460816','242431461920',
+    '242431786010','232331692611','242431596411','212431656304',
+    '242431680418','242431675005','232431652101','242431622804',
+    '232331424405','242431440109','232331499415','232335477206'
+  )
+ON DUPLICATE KEY UPDATE academic_year = VALUES(academic_year);
+
+-- -----------------------------------------------
+-- NOTES: Amina Gheffar's module THG - realistic grades for enrolled students
+-- -----------------------------------------------
+INSERT INTO notes (student_id, module_id, grade, academic_year)
+SELECT s.id, m.id,
+    CASE s.student_number
+        WHEN '232335330411' THEN 16.50
+        WHEN '212431859912' THEN 13.00
+        WHEN '232431546203' THEN 11.50
+        WHEN '242431599204' THEN 14.75
+        WHEN '222231609707' THEN 09.00
+        WHEN '242431676416' THEN 15.50
+        WHEN '232331500107' THEN 12.00
+        WHEN '242431370909' THEN 10.25
+        WHEN '232331413601' THEN 17.00
+        WHEN '242431368913' THEN 08.50
+        WHEN '222231413217' THEN 13.75
+        WHEN '242431438719' THEN 16.00
+        WHEN '242431577510' THEN 11.00
+        WHEN '222231581410' THEN 14.25
+        WHEN '242431461716' THEN 07.50
+        WHEN '232333374911' THEN 18.00
+        WHEN '242431453208' THEN 12.50
+        WHEN '222231438707' THEN 10.00
+        WHEN '232332170007' THEN 15.00
+        WHEN '232331499219' THEN 09.50
+        WHEN '232333087110' THEN 13.25
+        WHEN '232331738702' THEN 16.75
+        WHEN '242431730502' THEN 11.75
+        WHEN '222233370909' THEN 14.50
+        WHEN '242431620609' THEN 08.00
+        WHEN '232331388007' THEN 17.50
+        WHEN '232331412506' THEN 12.25
+        WHEN '232331740006' THEN 10.75
+        WHEN '242431597817' THEN 15.75
+        WHEN '232331667419' THEN 13.50
+        WHEN '232331441703' THEN 09.25
+        WHEN '232331715109' THEN 16.25
+        WHEN '242431715620' THEN 11.25
+        WHEN '222231345706' THEN 14.00
+        WHEN '242431460816' THEN 12.75
+        WHEN '242431461920' THEN 07.75
+        WHEN '242431786010' THEN 15.25
+        WHEN '232331692611' THEN 10.50
+        WHEN '242431596411' THEN 13.00
+        WHEN '212431656304' THEN 17.25
+        WHEN '242431680418' THEN 09.75
+        WHEN '242431675005' THEN 14.75
+        WHEN '232431652101' THEN 11.50
+        WHEN '242431622804' THEN 16.50
+        WHEN '232331424405' THEN 08.25
+        WHEN '242431440109' THEN 15.00
+        WHEN '232331499415' THEN 13.75
+        WHEN '232335477206' THEN 12.00
+    END AS grade,
+    '2025/2026'
+FROM students s, modules m
+WHERE m.code = 'THG'
+  AND s.student_number IN (
+    '232335330411','212431859912','232431546203','242431599204',
+    '222231609707','242431676416','232331500107','242431370909',
+    '232331413601','242431368913','222231413217','242431438719',
+    '242431577510','222231581410','242431461716','232333374911',
+    '242431453208','222231438707','232332170007','232331499219',
+    '232333087110','232331738702','242431730502','222233370909',
+    '242431620609','232331388007','232331412506','232331740006',
+    '242431597817','232331667419','232331441703','232331715109',
+    '242431715620','222231345706','242431460816','242431461920',
+    '242431786010','232331692611','242431596411','212431656304',
+    '242431680418','242431675005','232431652101','242431622804',
+    '232331424405','242431440109','232331499415','232335477206'
+  )
+ON DUPLICATE KEY UPDATE grade = VALUES(grade);

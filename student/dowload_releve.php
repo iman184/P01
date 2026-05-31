@@ -11,6 +11,14 @@ if ($_SESSION['user_role'] !== 'students') {
     header("Location: ../auth/login.php"); exit;
 }
 require_once '../config/db.php';
+
+// Check if Composer libraries are installed
+$dompdf_path = __DIR__ . '/../vendor/dompdf/dompdf/src/Dompdf.php';
+if (!file_exists($dompdf_path)) {
+    header("Location: ./releve.php?error=composer");
+    exit;
+}
+
 require_once '../vendor/autoload.php';
 
 use Dompdf\Dompdf;

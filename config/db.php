@@ -1,8 +1,10 @@
 <?php
-$host     = 'localhost';
-$dbname   = 'university_system';
-$username = 'root';
-$password = '';
+$host     = getenv('MYSQLHOST');
+$dbname   = getenv('MYSQL_DATABASE');
+$username = getenv('MYSQLUSER');
+$password = getenv('MYSQLPASSWORD');
+$port     = getenv('MYSQLPORT') ?: 3306;
+
 
 try {
     $pdo = new PDO(
