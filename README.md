@@ -1,5 +1,6 @@
-# Demo: p01-production.up.railway.app 
-# School Management System - Setup & Testing Guide
+# Demo:
+[p01-production.up.railway.app 
+](https://p01-production.up.railway.app/)# School Management System - Setup & Testing Guide
 
 ## 🔧 Initial Setup
 
