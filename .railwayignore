@@ -1,5 +1,0 @@
-[build]
-builder = "nixpacks"
-
-[build.nixpacksPlan.phases.setup]
-nixPkgs = ["php", "php83Extensions.pdo_mysql", "php83Extensions.mysqli", "php83Extensions.pdo"]
