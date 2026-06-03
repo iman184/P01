@@ -2,19 +2,19 @@
 
 ## 📸 Screenshots
 
-![Add Module](./assets/screenshots/adminPage/add_module.png)
+### Home Page
 
-### Admin Dashboard
+![Add Module](./assets/screenshots/Home.png)
 
-![Admin Dashboard](./screenshots/admin-dashboard.png)
+### Student Dashboard
 
-### Student Management
+![Student Dashboard](./assets/screenshots/studentPage/dashboard.png)
 
-![Student Management](./screenshots/students.png)
+### Teacher Dashboard
 
-### Grade Management
+![Teacher Dashboard](./assets/screenshots/teacherPage/dashboard.png)
 
-![Grade Management](./screenshots/grades.png)
+
 
 ## 🔧 Initial Setup
 
