@@ -3,7 +3,7 @@
 ## 📸 Screenshots
 
 
-![admin Page](assests/screenshots/adminPage/add_module)
+![admin Page](../assests/screenshots/adminPage/add_module)
 
 ### Admin Dashboard
 
