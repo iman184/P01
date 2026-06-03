@@ -2,8 +2,7 @@
 
 ## 📸 Screenshots
 
-
-![admin Page](../assests/screenshots/adminPage/add_module)
+![Add Module](./assets/screenshots/adminPage/add_module.png)
 
 ### Admin Dashboard
 
