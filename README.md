@@ -1,5 +1,22 @@
 # School Management System - Setup & Testing Guide
 
+## 📸 Screenshots
+
+
+![admin Page](./assests/screenshots/adminPage/add_module)
+
+### Admin Dashboard
+
+![Admin Dashboard](./screenshots/admin-dashboard.png)
+
+### Student Management
+
+![Student Management](./screenshots/students.png)
+
+### Grade Management
+
+![Grade Management](./screenshots/grades.png)
+
 ## 🔧 Initial Setup
 
 ## 📦 Teacher ZIP Setup (Recommended)
